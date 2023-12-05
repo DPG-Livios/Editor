@@ -12,12 +12,15 @@ module.exports = (env, argv) => {
     return {
         mode: argv.mode === "production" ? "production" : "development",
         entry: {
-            editor: './src/editor.js',
+            editor: './src/editor.ts',
         },
         output: {
             filename: '[name].js',
             assetModuleFilename: '[name][ext][query]',
             path: path.resolve(__dirname, dirName)
+        },
+        resolve: {
+            extensions: [ '.js', '.ts' ]
         },
         plugins: [
             // More plugins.
@@ -31,23 +34,16 @@ module.exports = (env, argv) => {
         module: {
             rules: [
                 {
+                    test: /\.ts/,
+                    use: [ 'ts-loader' ]
+                },
+                {
                     test: /\.svg$/i,
                     use: 'raw-loader',
                 },
                 {
-                    test: /\.js$/,
-                    exclude: /(node_modules|bower_components)/,
-                    use: {
-                        loader: 'babel-loader',
-                        options: {
-                            presets: ['@babel/preset-env']
-                        }
-                    }
-                },
-                {
                     test: /\.(sass|css)$/,
-                    use:
-                    [
+                    use: [
                         {
                             loader: 'style-loader',
                             options: {
@@ -74,11 +70,11 @@ module.exports = (env, argv) => {
             ]
         },
         plugins: [
-            new CleanWebpackPlugin(),
+            // new CleanWebpackPlugin(),
             new MiniCssExtractPlugin({
                 filename:'[name].css'
             }),
-            new CompressionPlugin(),
+            // new CompressionPlugin(),
         ],
         optimization: {
             minimize: argv.mode === "production",

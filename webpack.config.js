@@ -1,87 +1,57 @@
-﻿const path = require('path');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CompressionPlugin = require("compression-webpack-plugin");
-const { styles } = require( '@ckeditor/ckeditor5-dev-utils' );
+﻿// webpack.config.js
+
+const path = require( 'path' );
 const { CKEditorTranslationsPlugin } = require( '@ckeditor/ckeditor5-dev-translations' );
+const { styles } = require( '@ckeditor/ckeditor5-dev-utils' );
 
-const dirName = 'build';
+module.exports = {
+    entry: {script:'./src/script.js', ckeditor:'./src/ckeditor.js'},
+    output: {
+        path: path.resolve( __dirname, 'build' ),
+        filename: '[name].js'
+    },
+    plugins: [
+        // More plugins.
+        // ...
 
-module.exports = (env, argv) => {
-    return {
-        mode: argv.mode === "production" ? "production" : "development",
-        entry: {
-            editor: './src/editor.ts',
-        },
-        output: {
-            filename: '[name].js',
-            assetModuleFilename: '[name][ext][query]',
-            path: path.resolve(__dirname, dirName)
-        },
-        resolve: {
-            extensions: [ '.js', '.ts' ]
-        },
-        plugins: [
-            // More plugins.
-            // ...
-    
-            new CKEditorTranslationsPlugin( {
-                // See https://ckeditor.com/docs/ckeditor5/latest/features/ui-language.html
-                language: 'nl'
-            } )
-        ],
-        module: {
-            rules: [
-                {
-                    test: /\.ts/,
-                    use: [ 'ts-loader' ]
-                },
-                {
-                    test: /\.svg$/i,
-                    use: 'raw-loader',
-                },
-                {
-                    test: /\.(sass|css)$/,
-                    use: [
-                        {
-                            loader: 'style-loader',
-                            options: {
-                                injectType: 'singletonStyleTag',
-                                attributes: {
-                                    'data-cke': true
-                                }
-                            }
-                        },
-                        'css-loader',
-                        {
-                            loader: 'postcss-loader',
-                            options: {
-                                postcssOptions: styles.getPostCssConfig( {
-                                    themeImporter: {
-                                        themePath: require.resolve( '@ckeditor/ckeditor5-theme-lark' )
-                                    },
-                                    minify: true
-                                } )
+        new CKEditorTranslationsPlugin( {
+            // See https://ckeditor.com/docs/ckeditor5/latest/features/ui-language.html
+            language: 'nl',
+            addMainLanguageTranslationsToAllAssets: true
+        } )
+    ],
+    module: {
+        rules: [
+            {
+                test: /\.svg$/,
+                use: [ 'raw-loader' ]
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    {
+                        loader: 'style-loader',
+                        options: {
+                            injectType: 'singletonStyleTag',
+                            attributes: {
+                                'data-cke': true
                             }
                         }
-                    ]
-                }
-            ]
-        },
-        plugins: [
-            // new CleanWebpackPlugin(),
-            new MiniCssExtractPlugin({
-                filename:'[name].css'
-            }),
-            // new CompressionPlugin(),
-        ],
-        optimization: {
-            minimize: argv.mode === "production",
-            minimizer: [
-                '...',
-                new CssMinimizerPlugin()
-            ],
-        }
-    };
+                    },
+                    'css-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            postcssOptions: styles.getPostCssConfig( {
+                                themeImporter: {
+                                    themePath: require.resolve( '@ckeditor/ckeditor5-theme-lark' )
+                                },
+                                minify: true
+                            } )
+                        }
+                    }
+                ]
+            }
+        ]
+    }
 };

@@ -6,7 +6,7 @@ import imageIcon from '@ckeditor/ckeditor5-core/theme/icons/image.svg';
 export default class UploadImage extends Plugin {
     init() {
         const editor = this.editor;
-        editor.ui.componentFactory.add( 'insertImage', locale => {
+        editor.ui.componentFactory.add( 'uploadImage', locale => {
             const view = new ButtonView( locale );
             view.set( {
                 label: 'Insert image',

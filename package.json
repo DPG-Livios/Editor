@@ -1,22 +1,24 @@
 {
-  "name": "ckeditor5-custom-build",
-  "author": "CKSource",
-  "description": "A custom CKEditor 5 build made by the CKEditor 5 online builder.",
-  "version": "0.0.1",
-  "license": "SEE LICENSE IN LICENSE.md",
+  "name": "livios-editor",
+  "author": "Livios",
+  "version": "1.0.1",
   "private": true,
   "dependencies": {
     "@ckeditor/ckeditor5-basic-styles": "^40.1.0",
     "@ckeditor/ckeditor5-editor-classic": "^40.1.0",
     "@ckeditor/ckeditor5-essentials": "^40.1.0",
+    "@ckeditor/ckeditor5-find-and-replace": "^40.1.0",
     "@ckeditor/ckeditor5-heading": "^40.1.0",
+    "@ckeditor/ckeditor5-html-support": "^40.1.0",
     "@ckeditor/ckeditor5-image": "^40.1.0",
     "@ckeditor/ckeditor5-indent": "^40.1.0",
     "@ckeditor/ckeditor5-link": "^40.1.0",
     "@ckeditor/ckeditor5-list": "^40.1.0",
     "@ckeditor/ckeditor5-media-embed": "^40.1.0",
-    "@ckeditor/ckeditor5-paragraph": "^40.0.0",
+    "@ckeditor/ckeditor5-paragraph": "^40.1.0",
     "@ckeditor/ckeditor5-paste-from-office": "^40.1.0",
+    "@ckeditor/ckeditor5-show-blocks": "^40.1.0",
+    "@ckeditor/ckeditor5-source-editing": "^40.1.0",
     "@ckeditor/ckeditor5-special-characters": "^40.1.0",
     "@ckeditor/ckeditor5-word-count": "^40.1.0"
   },
@@ -34,6 +36,7 @@
   },
   "scripts": {
     "build": "webpack --mode production",
+    "buildDev": "webpack --mode development",
     "watch": "webpack watch --mode development"
   }
 }

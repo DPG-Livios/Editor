@@ -8,13 +8,15 @@ import { ClassicEditor as ClassicEditorBase } from '@ckeditor/ckeditor5-editor-c
 import { Bold, Italic, Subscript, Superscript } from '@ckeditor/ckeditor5-basic-styles';
 import { Essentials } from '@ckeditor/ckeditor5-essentials';
 import { Heading } from '@ckeditor/ckeditor5-heading';
-import { Image, ImageCaption } from '@ckeditor/ckeditor5-image';
 import { Indent } from '@ckeditor/ckeditor5-indent';
 import { AutoLink, Link } from '@ckeditor/ckeditor5-link';
 import { List } from '@ckeditor/ckeditor5-list';
 import { MediaEmbed } from '@ckeditor/ckeditor5-media-embed';
 import { Paragraph } from '@ckeditor/ckeditor5-paragraph';
 import { PasteFromOffice } from '@ckeditor/ckeditor5-paste-from-office';
+import { FindAndReplace } from '@ckeditor/ckeditor5-find-and-replace';
+import { Image, ImageInsert, ImageUpload, ImageCaption } from '@ckeditor/ckeditor5-image';
+import { ShowBlocks } from '@ckeditor/ckeditor5-show-blocks';
 import {
 	SpecialCharacters,
 	SpecialCharactersCurrency,
@@ -24,6 +26,10 @@ import {
 import { WordCount } from '@ckeditor/ckeditor5-word-count';
 import Anchor from './plugins/anchor/anchor.js';
 import UploadImage from './plugins/upload/image.js';
+import Faq from './plugins/faq/faq.js';
+import Schema from './plugins/schema/schema.js';
+import { SourceEditing } from '@ckeditor/ckeditor5-source-editing';
+
 
 // You can read more about extending the build with additional plugins in the "Installing plugins" guide.
 // See https://ckeditor.com/docs/ckeditor5/latest/installation/plugins/installing-plugins.html for details.
@@ -51,8 +57,16 @@ ClassicEditor.builtinPlugins = [
 		Subscript,
 		Superscript,
 		WordCount,
-	    Anchor,
-		UploadImage
+	    //Anchor,
+		UploadImage,
+		FindAndReplace,
+		Image,
+		ImageInsert,
+		ImageUpload,
+		Paragraph,
+		ShowBlocks,
+		Faq, Schema,
+		SourceEditing
 	];
 
 	ClassicEditor.defaultConfig = {
@@ -60,7 +74,10 @@ ClassicEditor.builtinPlugins = [
 			items: ['undo', 'redo',
 			     '|', 'bold', 'italic', 'subscript', 'superscript',
 			     '|', 'outdent', 'indent', 'bulletedList', 'numberedList',
-			     '|', 'link', 'mediaEmbed', 'specialcharacters', 'pastefromoffice', 'anchor', 'insertImage']
+			     '|', 'imageUpload', 'uploadImage', 'insertImage', 'showBlocks',
+			     '|', 'link', 'findAndReplace',  'mediaEmbed', 'specialcharacters', 'pastefromoffice', 
+				 '|', 'anchor', 'faq', 'schema',
+				 '|', 'sourceEditing']
 		},
 		language: 'nl',
 		mediaEmbed: { previewsInData: true }

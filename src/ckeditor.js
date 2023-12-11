@@ -28,6 +28,7 @@ import Anchor from './plugins/anchor/anchor.js';
 import UploadImage from './plugins/upload/image.js';
 import Faq from './plugins/faq/faq.js';
 import Schema from './plugins/schema/schema.js';
+import Iframe from './plugins/iframe/iframe.js';
 import { SourceEditing } from '@ckeditor/ckeditor5-source-editing';
 
 
@@ -57,7 +58,7 @@ ClassicEditor.builtinPlugins = [
 		Subscript,
 		Superscript,
 		WordCount,
-	    //Anchor,
+	    Anchor,
 		UploadImage,
 		FindAndReplace,
 		Image,
@@ -65,7 +66,7 @@ ClassicEditor.builtinPlugins = [
 		ImageUpload,
 		Paragraph,
 		ShowBlocks,
-		Faq, Schema,
+		Faq, Schema, Iframe,
 		SourceEditing
 	];
 
@@ -76,7 +77,7 @@ ClassicEditor.builtinPlugins = [
 			     '|', 'outdent', 'indent', 'bulletedList', 'numberedList',
 			     '|', 'imageUpload', 'uploadImage', 'insertImage', 'showBlocks',
 			     '|', 'link', 'findAndReplace',  'mediaEmbed', 'specialcharacters', 'pastefromoffice', 
-				 '|', 'anchor', 'faq', 'schema',
+				 '|', 'anchor', 'faq', 'schema', 'iframe',
 				 '|', 'sourceEditing']
 		},
 		language: 'nl',

@@ -572,6 +572,5 @@ function shouldCopyAttributes( model ) {
 // @returns {Boolean}
 function isTyping( editor ) {
 	const batch = editor.model.change( writer => writer.batch );
-	console.log(batch)
 	return batch.isTyping;
 }

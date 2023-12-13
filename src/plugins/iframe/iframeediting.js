@@ -4,104 +4,59 @@
  */
 
 import { Plugin } from '@ckeditor/ckeditor5-core';
-import { ButtonView, ContextualBalloon, clickOutsideHandler } from '@ckeditor/ckeditor5-ui';
-import IframeView from './iframeview.js';
-import '../styles.css';
+import { toWidget } from '@ckeditor/ckeditor5-widget/src/utils';
 
-export default class IframeUI extends Plugin {
-	static get requires() {
-		return [ ContextualBalloon ];
-	}
-
+export default class IframeEditing extends Plugin {
 	init() {
-		const editor = this.editor;
-
-        // Create the balloon and the form view.
-		this._balloon = this.editor.plugins.get( ContextualBalloon );
-		this.formView = this._createFormView();
-
-		editor.ui.componentFactory.add( 'abbreviation', () => {
-			const button = new ButtonView();
-
-			button.label = 'Abbreviation';
-			button.tooltip = true;
-			button.withText = true;
-
-			// Show the UI on button click.
-			this.listenTo( button, 'execute', () => {
-				this._showUI();
-			} );
-
-			return button;
-		} );
+		this._defineSchema();
+		this._defineConverters();
 	}
+	_defineSchema() {
+		const schema = this.editor.model.schema;
 
-	_createFormView() {
-		const editor = this.editor;
-		const formView = new IframeView( editor.locale );
-
-		// Execute the command after clicking the "Save" button.
-		this.listenTo( formView, 'submit', () => {
-			// Grab values from the abbreviation and title input fields.
-			const title = formView.titleInputView.fieldView.element.value;
-			const abbr = formView.abbrInputView.fieldView.element.value;
-
-			editor.model.change( writer => {
-				editor.model.insertContent( writer.createText( abbr, { abbreviation: title } ) );
-			} );
-
-            // Hide the form view after submit.
-			this._hideUI();
-		} );
-
-		// Hide the form view after clicking the "Cancel" button.
-		this.listenTo( formView, 'cancel', () => {
-			this._hideUI();
-		} );
-
-		// Hide the form view when clicking outside the balloon.
-		clickOutsideHandler( {
-			emitter: formView,
-			activator: () => this._balloon.visibleView === formView,
-			contextElements: [ this._balloon.view.element ],
-			callback: () => this._hideUI()
-		} );
-
-		return formView;
+		schema.register( 'iframe', {
+			allowAttributes: [ 'src', 'style' ],
+            // Behaves like a self-contained block object (e.g. a block image)
+            // allowed in places where other blocks are allowed (e.g. directly in the root).
+            inheritAllFrom: '$blockObject'
+        } );
 	}
+	_defineConverters() {
+		const conversion = this.editor.conversion;
+		
+		conversion.for('upcast').elementToElement({
+            model: 'iframe',
+            view: {
+                name: 'iframe',
+                attributes: {
+                    'style': /^width:\s*(\d+(px)?)?;\s*height:\s*(\d+(px)?)?;$/,
+                    'src': true,
+                    'frameborder': '0'
+                }
+            }
+        });
 
-	_showUI() {
-		this._balloon.add( {
-			view: this.formView,
-			position: this._getBalloonPositionData()
-		} );
+        conversion.for('downcast').elementToElement({
+            model: 'iframe',
+            view: (modelElement, { writer }) => {
+                const style = `width: ${modelElement.getAttribute('style').width}; height: ${modelElement.getAttribute('style').height}`;
+                return writer.createAttributeElement('iframe', {
+                    style,
+                    src: modelElement.getAttribute('src'),
+                    frameborder: '0'
+                });
+            }
+        });
 
-		this.formView.focus();
-	}
+        conversion.for('editingDowncast').elementToElement({
+            model: 'iframe',
+            view: (modelElement, { writer }) => {
+                return toWidget(writer, modelElement, 'iframe');
+            }
+        });
 
-	_hideUI() {
-		// Clear the input field values and reset the form.
-		this.formView.abbrInputView.fieldView.value = '';
-		this.formView.titleInputView.fieldView.value = '';
-		this.formView.element.reset();
 
-		this._balloon.remove( this.formView );
 
-		// Focus the editing view after inserting the abbreviation so the user can start typing the content
-		// right away and keep the editor focused.
-		this.editor.editing.view.focus();
-	}
 
-	_getBalloonPositionData() {
-		const view = this.editor.editing.view;
-		const viewDocument = view.document;
-		let target = null;
-
-		// Set a target position by converting view selection range to DOM
-		target = () => view.domConverter.viewRangeToDom( viewDocument.selection.getFirstRange() );
-
-		return {
-			target
-		};
 	}
 }

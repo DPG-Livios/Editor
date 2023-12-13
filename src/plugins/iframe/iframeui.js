@@ -6,7 +6,6 @@
 import { Plugin } from '@ckeditor/ckeditor5-core';
 import { ButtonView, ContextualBalloon, clickOutsideHandler } from '@ckeditor/ckeditor5-ui';
 import IframeView from './iframeview.js';
-//import '../styles.css';
 
 export default class IframeUI extends Plugin {
 	static get requires() {
@@ -20,10 +19,10 @@ export default class IframeUI extends Plugin {
 		this._balloon = this.editor.plugins.get( ContextualBalloon );
 		this.formView = this._createFormView();
 
-		editor.ui.componentFactory.add( 'abbreviation', () => {
+		editor.ui.componentFactory.add( 'iframe', () => {
 			const button = new ButtonView();
 
-			button.label = 'Abbreviation';
+			button.label = 'Iframe';
 			button.tooltip = true;
 			button.withText = true;
 
@@ -43,11 +42,13 @@ export default class IframeUI extends Plugin {
 		// Execute the command after clicking the "Save" button.
 		this.listenTo( formView, 'submit', () => {
 			// Grab values from the abbreviation and title input fields.
-			const title = formView.titleInputView.fieldView.element.value;
-			const abbr = formView.abbrInputView.fieldView.element.value;
-
+			const src = formView.srcInputView.fieldView.element.value;
+			const width = formView.widthInputView.fieldView.element.value;
+			const height = formView.heightInputView.fieldView.element.value;
+			console.log(formView.srcInputView.fieldView.element, src, width, height)
 			editor.model.change( writer => {
-				editor.model.insertContent( writer.createText( abbr, { abbreviation: title } ) );
+				const iframeElement = writer.createElement('iframe', { src: src, style: 'width: '+width+'; height: '+height });
+				editor.model.insertContent(iframeElement );
 			} );
 
             // Hide the form view after submit.
@@ -81,8 +82,10 @@ export default class IframeUI extends Plugin {
 
 	_hideUI() {
 		// Clear the input field values and reset the form.
-		this.formView.abbrInputView.fieldView.value = '';
-		this.formView.titleInputView.fieldView.value = '';
+		this.formView.srcInputView.fieldView.value = '';
+		this.formView.widthInputView.fieldView.value = '500';
+		this.formView.heightInputView.fieldView.value = '300';
+
 		this.formView.element.reset();
 
 		this._balloon.remove( this.formView );

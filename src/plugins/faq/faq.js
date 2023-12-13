@@ -12,11 +12,12 @@ export default class Faq extends Plugin {
         editor.ui.componentFactory.add('faq', locale => {
             const view = new ButtonView(locale);
             view.set({
+			    isEnabled: true,
                 label: 'Q&A',
                 icon: faqIcon,
                 tooltip: true
             });
-            
+
             view.on('execute', () => {
 
                 editor.model.change(writer => {
@@ -33,8 +34,6 @@ export default class Faq extends Plugin {
             return view;
         });
     }
-
-    
 
     defineSchema() {
         const schema = this.editor.model.schema;

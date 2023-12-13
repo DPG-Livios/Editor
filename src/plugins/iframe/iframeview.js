@@ -16,8 +16,9 @@ export default class IframeView extends View {
 	constructor( locale ) {
 		super( locale );
 
-		this.abbrInputView = this._createInput( 'Add abbreviation' );
-		this.titleInputView = this._createInput( 'Add title' );
+		this.srcInputView = this._createInput( 'Add iframe url' );
+		this.widthInputView = this._createInput( 'Width', 500);
+		this.heightInputView = this._createInput( 'Height', 300);
 
 		this.saveButtonView = this._createButton( 'Save', icons.check, 'ck-button-save' );
 		// Submit type of the button will trigger the submit event on entire form when clicked 
@@ -30,8 +31,9 @@ export default class IframeView extends View {
 		this.cancelButtonView.delegate( 'execute' ).to( this, 'cancel' );
 
 		this.childViews = this.createCollection( [
-			this.abbrInputView,
-			this.titleInputView,
+			this.srcInputView,
+			this.widthInputView,
+			this.heightInputView,
 			this.saveButtonView,
 			this.cancelButtonView
 		] );
@@ -59,11 +61,14 @@ export default class IframeView extends View {
 		this.childViews.first.focus();
 	}
 
-	_createInput( label ) {
+	_createInput( label, defaultValue ) {
 		const labeledInput = new LabeledFieldView( this.locale, createLabeledInputText );
 
 		labeledInput.label = label;
-
+		
+		if(defaultValue){
+			labeledInput.fieldView.value = defaultValue;
+		}
 		return labeledInput;
 	}
 

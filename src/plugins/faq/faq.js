@@ -1,5 +1,6 @@
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview';
+import FaqCommand from './faqcommand.js';
 import faqIcon from './faq.svg';
 
 export default class Faq extends Plugin {
@@ -8,9 +9,16 @@ export default class Faq extends Plugin {
 
         this.defineSchema();
         this.defineConverters();
+        
+        editor.commands.add(
+            'addFaq', new FaqCommand(editor)
+        );
 
         editor.ui.componentFactory.add('faq', locale => {
+
             const view = new ButtonView(locale);
+			const faqCommand = editor.commands.get( 'addFaq' );
+            
             view.set({
 			    isEnabled: true,
                 label: 'Q&A',
@@ -18,17 +26,12 @@ export default class Faq extends Plugin {
                 tooltip: true
             });
 
-            view.on('execute', () => {
+			// Bind button to the command.
+			view.bind( 'isEnabled' ).to( faqCommand, 'isEnabled' );
+			view.bind( 'isOn' ).to( faqCommand, 'value', value => !!value );
 
-                editor.model.change(writer => {
-                    const selectedElement = editor.model.document.selection.getFirstPosition().parent;
-                    const accordionElement = this.findAccordionElement(selectedElement);
-                    if (accordionElement) {
-                        this.addAccordionItem(accordionElement, writer);
-                    } else {
-                        this.insertAccordion(writer, editor);
-                    }
-                });
+            view.on('execute', () => {
+				this.editor.execute( 'addFaq' );
 
             });
             return view;
@@ -55,6 +58,7 @@ export default class Faq extends Plugin {
             isLimit: true,
 
             allowIn: 'accordion-item',
+            inheritAllFrom: '$block',
 
             // Allow content which is allowed in blocks (i.e. text with attributes).
             allowContentOf: '$block'
@@ -64,9 +68,10 @@ export default class Faq extends Plugin {
             // Cannot be split or left by the caret.
             isLimit: true,
             allowIn: 'accordion-item',
+            inheritAllFrom: '$block',
 
             // Allow content which is allowed in the root (e.g. paragraphs).
-            allowContentOf: '$block'
+            //allowContentOf: '$block'
         } );
     }
 
@@ -104,47 +109,5 @@ export default class Faq extends Plugin {
                 classes: 'accordion-body'
             }
         } );
-    }
-
-    findAccordionElement(selectedElement) {
-        if (!selectedElement) {
-            return null;
-        }
-    
-        if (selectedElement.is('element') && selectedElement.name === 'accordion') {
-            return selectedElement;
-        }
-    
-        return this.findAccordionElement(selectedElement.parent);
-    }
-
-    insertAccordion(writer, editor) {
-        const accordionElement = writer.createElement('accordion', { class: 'accordion' });
-        const accordionItem = writer.createElement('accordion-item', { class: 'accordion-item' });
-        const accordionHeader = writer.createElement('accordion-header', { class: 'accordion-header' });
-        const accordionBody = writer.createElement('accordion-body', { class: 'accordion-body' });
-
-        writer.insertText('Vraag', accordionHeader);
-        writer.insertText('Antwoord', accordionBody);
-
-        writer.append(accordionHeader, accordionItem);
-        writer.append(accordionBody, accordionItem);
-        writer.append(accordionItem, accordionElement);
-
-        editor.model.insertContent(accordionElement, editor.model.document.selection);
-    }
-    
-    addAccordionItem(accordionElement, writer) {
-        const accordionItem = writer.createElement('accordion-item', { class: 'accordion-item' });
-        const accordionHeader = writer.createElement('accordion-header', { class: 'accordion-header' });
-        const accordionBody = writer.createElement('accordion-body', { class: 'accordion-body' });
-    
-        writer.insertText('Vraag', accordionHeader);
-        writer.insertText('Antwoord', accordionBody);
-    
-        writer.append(accordionHeader, accordionItem);
-        writer.append(accordionBody, accordionItem);
-        
-        writer.append(accordionItem, accordionElement);
     }
 }

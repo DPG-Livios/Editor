@@ -4,18 +4,27 @@
  */
 
 import { Plugin } from '@ckeditor/ckeditor5-core';
-import { toWidget } from '@ckeditor/ckeditor5-widget/src/utils';
+import { Widget, toWidget, toWidgetEditable } from '@ckeditor/ckeditor5-widget';
+import IframeCommand from './iframecommand.js';
 
 export default class IframeEditing extends Plugin {
+    static get requires() {
+        return [ Widget ];
+    }
+
 	init() {
 		this._defineSchema();
 		this._defineConverters();
+        
+        this.editor.commands.add(
+            'addIframe', new IframeCommand(this.editor)
+        );
 	}
 	_defineSchema() {
 		const schema = this.editor.model.schema;
 
 		schema.register( 'iframe', {
-			allowAttributes: [ 'src', 'style' ],
+			allowAttributes: [ 'src', 'style', 'width', 'height' ],
             // Behaves like a self-contained block object (e.g. a block image)
             // allowed in places where other blocks are allowed (e.g. directly in the root).
             inheritAllFrom: '$blockObject'
@@ -35,11 +44,11 @@ export default class IframeEditing extends Plugin {
                 }
             }
         });
-
-        conversion.for('downcast').elementToElement({
+        
+        conversion.for('dataDowncast').elementToElement({
             model: 'iframe',
             view: (modelElement, { writer }) => {
-                const style = `width: ${modelElement.getAttribute('style').width}; height: ${modelElement.getAttribute('style').height}`;
+                const style = `width: ${modelElement.getAttribute('width')}; height: ${modelElement.getAttribute('height')};padding:10px`;
                 return writer.createAttributeElement('iframe', {
                     style,
                     src: modelElement.getAttribute('src'),
@@ -51,12 +60,15 @@ export default class IframeEditing extends Plugin {
         conversion.for('editingDowncast').elementToElement({
             model: 'iframe',
             view: (modelElement, { writer }) => {
-                return toWidget(writer, modelElement, 'iframe');
+                const iframeView = writer.createContainerElement('iframe', {
+                    class: 'ck-widget ck-widget-selected',
+                    'style': modelElement.getAttribute('style'),
+                    'src': modelElement.getAttribute('src'),
+                    'frameborder': '0'
+                });
+    
+                return toWidget(iframeView, writer, 'iframe');
             }
         });
-
-
-
-
 	}
 }

@@ -71,6 +71,7 @@ export default class SchemaView extends View {
         button.set({
             label,
             icon,
+			isOn: false,
             tooltip: true,
             class: className
         });

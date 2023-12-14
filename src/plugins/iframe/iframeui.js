@@ -22,11 +22,15 @@ export default class IframeUI extends Plugin {
 
 		editor.ui.componentFactory.add( 'iframe', () => {
 			const button = new ButtonView();
+			const iframeCommand = editor.commands.get( 'addIframe' );
 
 			button.label = 'Iframe';
 			button.icon = iframeIcon;
 			button.tooltip = true;
 			button.withText = false;
+		
+			button.bind( 'isEnabled' ).to( iframeCommand, 'isEnabled' );
+			button.bind( 'isOn' ).to( iframeCommand, 'value', value => !!value );
 
 			// Show the UI on button click.
 			this.listenTo( button, 'execute', () => {
@@ -46,12 +50,9 @@ export default class IframeUI extends Plugin {
 			// Grab values from the abbreviation and title input fields.
 			const src = formView.srcInputView.fieldView.element.value;
 			const width = formView.widthInputView.fieldView.element.value;
-			const height = formView.heightInputView.fieldView.element.value;
-			console.log(formView.srcInputView.fieldView.element, src, width, height)
-			editor.model.change( writer => {
-				const iframeElement = writer.createElement('iframe', { src: src, style: 'width: '+width+'; height: '+height });
-				editor.model.insertContent(iframeElement );
-			} );
+			const height = formView.heightInputView.fieldView.element.value;			
+			
+			editor.execute( 'addIframe', {src, width, height} );
 
             // Hide the form view after submit.
 			this._hideUI();
@@ -84,11 +85,11 @@ export default class IframeUI extends Plugin {
 
 	_hideUI() {
 		// Clear the input field values and reset the form.
+		this.formView.element.reset();
+		
 		this.formView.srcInputView.fieldView.value = '';
 		this.formView.widthInputView.fieldView.value = '500';
 		this.formView.heightInputView.fieldView.value = '300';
-
-		this.formView.element.reset();
 
 		this._balloon.remove( this.formView );
 

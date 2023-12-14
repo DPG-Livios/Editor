@@ -6,6 +6,7 @@
 import { Plugin } from '@ckeditor/ckeditor5-core';
 import { ButtonView, ContextualBalloon, clickOutsideHandler } from '@ckeditor/ckeditor5-ui';
 import IframeView from './iframeview.js';
+import iframeIcon from './iframe.svg';
 
 export default class IframeUI extends Plugin {
 	static get requires() {
@@ -23,8 +24,9 @@ export default class IframeUI extends Plugin {
 			const button = new ButtonView();
 
 			button.label = 'Iframe';
+			button.icon = iframeIcon;
 			button.tooltip = true;
-			button.withText = true;
+			button.withText = false;
 
 			// Show the UI on button click.
 			this.listenTo( button, 'execute', () => {

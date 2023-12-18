@@ -5,7 +5,7 @@ const { CKEditorTranslationsPlugin } = require( '@ckeditor/ckeditor5-dev-transla
 const { styles } = require( '@ckeditor/ckeditor5-dev-utils' );
 
 module.exports = {
-    entry: {script:'./src/script.js', ckeditor:'./src/ckeditor.js'},
+    entry: {script:'./src/script.js'},//, ckeditor:'./src/ckeditor.js'},
     output: {
         path: path.resolve( __dirname, 'build' ),
         filename: '[name].js'

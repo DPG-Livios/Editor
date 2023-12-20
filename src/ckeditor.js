@@ -86,3 +86,5 @@ Editor.defaultConfig = {
 		]
 	},
 };
+
+window.Editor = Editor;

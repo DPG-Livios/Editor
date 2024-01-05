@@ -47,7 +47,7 @@ export default class ImageInsertUI extends Plugin {
         const t = locale.t;
         const uploadImageCommand = editor.commands.get('uploadImage');
         const insertImageCommand = editor.commands.get('insertImage');
-        this.dropdownView = createDropdown(locale, uploadImageCommand ? SplitButtonView : undefined);
+        this.dropdownView = createDropdown(locale); //,uploadImageCommand ? SplitButtonView : undefined);
         const buttonView = this.dropdownView.buttonView;
         const panelView = this.dropdownView.panelView;
         buttonView.set({
@@ -60,6 +60,13 @@ export default class ImageInsertUI extends Plugin {
                 class: 'ck-image-insert__panel'
             }
         });
+
+        /*buttonView.on('execute', () => {
+            console.log(this.dropdownView)
+            // Open the dropdown when the button is clicked
+            this.dropdownView.fire("change:isOpen")// ? this.dropdownView.close() : this.dropdownView.open();
+        });/*
+
         /*if (uploadImageCommand) {
             const splitButtonView = this.dropdownView.buttonView;
             // We are injecting custom button replacement to readonly field.

@@ -24,7 +24,7 @@ import { Table, TableToolbar } from '@ckeditor/ckeditor5-table';
 import { Undo } from '@ckeditor/ckeditor5-undo';
 import { WordCount } from '@ckeditor/ckeditor5-word-count';
 import Anchor from './plugins/anchor/anchor.js';
-// import UploadImage from './plugins/upload/image.js';
+import UploadImage from './plugins/upload/image.js';
 import Faq from './plugins/faq/faq.js';
 import Schema from './plugins/schema/schema.js';
 import Iframe from './plugins/iframe/iframe.js';
@@ -62,7 +62,7 @@ Editor.builtinPlugins = [
 	WordCount,
 	Faq, Schema, Iframe,
 	Anchor,
-	//UploadImage,
+	UploadImage,
 ];
 
 Editor.defaultConfig = {

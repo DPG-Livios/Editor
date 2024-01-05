@@ -121,6 +121,7 @@ export default class AutoImage extends Plugin {
                 if (this._positionToInsert.root.rootName !== '$graveyard') {
                     insertionPosition = this._positionToInsert.toPosition();
                 }
+                
                 imageUtils.insertImage({ ...selectionAttributes, src }, insertionPosition);
                 this._positionToInsert.detach();
                 this._positionToInsert = null;

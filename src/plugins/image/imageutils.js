@@ -92,7 +92,8 @@ export default class ImageUtils extends Plugin {
           console.log(numberAfterUmbracoMedia)
           attributes['data-mediaid'] = numberAfterUmbracoMedia;
         } else {
-          console.log("No match found for umbracomedia");
+            alert("No mediaid found in image url!");
+            return;
         }
 
         for (const attributeName in attributes) {

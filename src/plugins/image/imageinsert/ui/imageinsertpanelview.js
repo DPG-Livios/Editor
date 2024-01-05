@@ -148,7 +148,7 @@ export default class ImageInsertPanelView extends View {
             withText: true
         });
         insertButtonView.bind('isEnabled').to(this, 'imageURLInputValue', value => !!value);
-        insertButtonView.delegate('execute').to(this, 'submit');
+        //insertButtonView.delegate('execute').to(this, 'submit');
         cancelButtonView.delegate('execute').to(this, 'cancel');
         return { insertButtonView, cancelButtonView };
     }

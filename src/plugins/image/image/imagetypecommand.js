@@ -57,6 +57,7 @@ export default class ImageTypeCommand extends Command {
             // Get all markers that contain the old image element.
             const markers = Array.from(model.markers)
                 .filter(marker => marker.getRange().containsItem(oldElement));
+                
             const newElement = imageUtils.insertImage(attributes, model.createSelection(oldElement, 'on'), this._modelElementName, { setImageSizes });
             if (!newElement) {
                 return null;

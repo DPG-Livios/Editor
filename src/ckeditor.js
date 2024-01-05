@@ -5,7 +5,7 @@ import { BlockQuote } from '@ckeditor/ckeditor5-block-quote';
 import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials';
 import { FindAndReplace } from '@ckeditor/ckeditor5-find-and-replace';
 import { Heading } from '@ckeditor/ckeditor5-heading';
-import { Image, ImageInsert, ImageUpload } from '@ckeditor/ckeditor5-image';
+import { Image, ImageInsert, ImageUpload } from './plugins/image';
 import { AutoLink, Link } from '@ckeditor/ckeditor5-link';
 import { List } from '@ckeditor/ckeditor5-list';
 import { MediaEmbed } from '@ckeditor/ckeditor5-media-embed';

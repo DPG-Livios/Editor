@@ -50,7 +50,6 @@ export default class ReplaceImageSourceCommand extends Command {
               const numberAfterUmbracoMedia = match[1];
               writer.setAttribute('data-mediaid', numberAfterUmbracoMedia, image);
             } else {
-                console.log("error replace")
                 alert("No mediaid found in image url!");
                 return;
             }

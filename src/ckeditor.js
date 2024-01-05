@@ -5,7 +5,7 @@ import { BlockQuote } from '@ckeditor/ckeditor5-block-quote';
 import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials';
 import { FindAndReplace } from '@ckeditor/ckeditor5-find-and-replace';
 import { Heading } from '@ckeditor/ckeditor5-heading';
-import { Image, ImageInsert, ImageUpload } from './plugins/image';
+import { Image, ImageInsert } from './plugins/image';
 import { AutoLink, Link } from '@ckeditor/ckeditor5-link';
 import { List } from '@ckeditor/ckeditor5-list';
 import { MediaEmbed } from '@ckeditor/ckeditor5-media-embed';
@@ -24,7 +24,7 @@ import { Table, TableToolbar } from '@ckeditor/ckeditor5-table';
 import { Undo } from '@ckeditor/ckeditor5-undo';
 import { WordCount } from '@ckeditor/ckeditor5-word-count';
 import Anchor from './plugins/anchor/anchor.js';
-import UploadImage from './plugins/upload/image.js';
+// import UploadImage from './plugins/upload/image.js';
 import Faq from './plugins/faq/faq.js';
 import Schema from './plugins/schema/schema.js';
 import Iframe from './plugins/iframe/iframe.js';
@@ -40,7 +40,7 @@ Editor.builtinPlugins = [
 	Heading,
 	Image,
 	ImageInsert,
-	ImageUpload,
+	// ImageUpload,
 	Italic,
 	Link,
 	List,
@@ -62,7 +62,7 @@ Editor.builtinPlugins = [
 	WordCount,
 	Faq, Schema, Iframe,
 	Anchor,
-	UploadImage,
+	//UploadImage,
 ];
 
 Editor.defaultConfig = {

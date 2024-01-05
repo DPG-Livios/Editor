@@ -60,7 +60,7 @@ export default class ImageInsertUI extends Plugin {
                 class: 'ck-image-insert__panel'
             }
         });
-        if (uploadImageCommand) {
+        /*if (uploadImageCommand) {
             const splitButtonView = this.dropdownView.buttonView;
             // We are injecting custom button replacement to readonly field.
             splitButtonView.actionView = editor.ui.componentFactory.create('uploadImage');
@@ -73,8 +73,8 @@ export default class ImageInsertUI extends Plugin {
                     class: 'ck ck-button ck-splitbutton__action'
                 }
             });
-        }
-        return this._setUpDropdown(uploadImageCommand || insertImageCommand);
+        }*/
+        return this._setUpDropdown(insertImageCommand);
     }
     /**
      * Sets up the dropdown view.

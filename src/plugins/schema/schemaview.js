@@ -96,7 +96,7 @@ export default class SchemaView extends View {
 
     _addSchemaAttribute(element, value) {
         this.editor.model.change(writer => {
-			console.log(element, value)
+			
 			if(value){
 				writer.setAttribute('data-schemaorg', value, element);
 			}else	{

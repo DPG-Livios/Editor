@@ -89,7 +89,6 @@ export default class ImageUtils extends Plugin {
         var numberAfterUmbracoMedia;
         if (match) {
           numberAfterUmbracoMedia = match[1];
-          console.log(numberAfterUmbracoMedia)
           attributes['data-mediaid'] = numberAfterUmbracoMedia;
         } else {
             alert("No mediaid found in image url!");
@@ -101,7 +100,6 @@ export default class ImageUtils extends Plugin {
                 delete attributes[attributeName];
             }
         }
-        console.log(attributes, determinedImageType, selection.getAttributes())
 
         return model.change(writer => {
             const { setImageSizes = true } = options;  
@@ -304,6 +302,7 @@ function getInsertImageParent(selection, model) {
 function determineImageTypeForInsertion(editor, selectable, imageType) {
     const schema = editor.model.schema;
     const configImageInsertType = editor.config.get('image.insert.type');
+    
     if (!editor.plugins.has('ImageBlockEditing')) {
         return 'imageInline';
     }
@@ -313,12 +312,13 @@ function determineImageTypeForInsertion(editor, selectable, imageType) {
     if (imageType) {
         return imageType;
     }
-    if (configImageInsertType === 'inline') {
+    if (configImageInsertType === 'inline' || configImageInsertType === undefined) {
         return 'imageInline';
     }
     if (configImageInsertType !== 'auto') {
         return 'imageBlock';
     }
+    
     // Try to replace the selected widget (e.g. another image).
     if (selectable.is('selection')) {
         return determineImageTypeForInsertionAtSelection(schema, selectable);

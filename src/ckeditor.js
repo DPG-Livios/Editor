@@ -28,6 +28,7 @@ import UploadImage from './plugins/upload/image.js';
 import Faq from './plugins/faq/faq.js';
 import Schema from './plugins/schema/schema.js';
 import Iframe from './plugins/iframe/iframe.js';
+import Tip from './plugins/tip/tip.js';
 
 export default class Editor extends ClassicEditorBase { }
 
@@ -62,10 +63,21 @@ Editor.builtinPlugins = [
 	WordCount,
 	Faq, Schema, Iframe,
 	Anchor,
-	UploadImage,
+	UploadImage, Tip
 ];
 
 Editor.defaultConfig = {
+	heading: {
+		options: [
+			{ model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+			// { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+			{ model: 'heading2', view: 'h2', title: 'H2 titel', class: 'ck-heading_heading2' },
+			{ model: 'heading3', view: 'h3', title: 'H3 titel', class: 'ck-heading_heading3' },
+			{ model: 'heading4', view: 'h4', title: 'H4 titel', class: 'ck-heading_heading4' },
+			{ model: 'heading5', view: 'h5', title: 'H5 titel', class: 'ck-heading_heading5' },
+			{ model: 'heading6', view: 'h6', title: 'H6 titel', class: 'ck-heading_heading6' }
+		]
+	},
 	toolbar: {
 		items: [
 			'undo', 'redo',
@@ -74,7 +86,7 @@ Editor.defaultConfig = {
 			'|', 'link', 'imageUpload', 'insertTable', 'mediaEmbed', 'imageInsert', 'specialCharacters',
 			'|', 'sourceEditing', 'removeFormat', 'showBlocks',
 			'|', 'findAndReplace',
-			'|', 'anchor', 'faq', 'schema', 'iframe'
+			'|', 'anchor', 'faq', 'schema', 'iframe', 'tip'
 		]
 	},
 	language: 'nl',

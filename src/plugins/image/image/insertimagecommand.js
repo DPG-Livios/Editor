@@ -107,6 +107,13 @@ export default class InsertImageCommand extends Command {
             if (typeof sourceDefinition === 'string') {
                 sourceDefinition = { src: sourceDefinition };
             }
+
+            sourceDefinition.caption = options.caption;
+            sourceDefinition.size = options.size;
+            sourceDefinition.seo = options.seo;
+
+            console.info(sourceDefinition)
+
             // Inserting of an inline image replace the selected element and make a selection on the inserted image.
             // Therefore inserting multiple inline images requires creating position after each element.
             if (index && selectedElement && imageUtils.isImage(selectedElement)) {

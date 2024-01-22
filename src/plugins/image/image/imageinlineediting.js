@@ -47,7 +47,7 @@ export default class ImageInlineEditing extends Plugin {
         // Converters 'alt' and 'srcset' are added in 'ImageEditing' plugin.
         schema.register('imageInline', {
             inheritAllFrom: '$inlineObject',
-            allowAttributes: ['alt', 'src', 'srcset', 'data-mediaid']
+            allowAttributes: ['alt', 'src', 'srcset', 'data-mediaid', 'data-size', 'data-caption', 'data-seo']
         });
         // Disallow inline images in captions (for now). This is the best spot to do that because
         // independent packages can introduce captions (ImageCaption, TableCaption, etc.) so better this
@@ -86,6 +86,9 @@ export default class ImageInlineEditing extends Plugin {
             .add(downcastImageAttribute(imageUtils, 'imageInline', 'src'))
             .add(downcastImageAttribute(imageUtils, 'imageInline', 'alt'))
             .add(downcastImageAttribute(imageUtils, 'imageInline', 'data-mediaid'))
+            .add(downcastImageAttribute(imageUtils, 'imageInline', 'data-size'))
+            .add(downcastImageAttribute(imageUtils, 'imageInline', 'data-caption'))
+            .add(downcastImageAttribute(imageUtils, 'imageInline', 'data-seo'))
             .add(downcastSrcsetAttribute(imageUtils, 'imageInline'));
         // More image related upcasts are in 'ImageEditing' plugin.
         conversion.for('upcast')

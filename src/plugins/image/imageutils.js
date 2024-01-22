@@ -95,11 +95,11 @@ export default class ImageUtils extends Plugin {
             return;
         }
 
-        for (const attributeName in attributes) {
+        /*for (const attributeName in attributes) {
             if (!model.schema.checkAttribute(determinedImageType, attributeName)) {
                 delete attributes[attributeName];
             }
-        }
+        }*/
 
         return model.change(writer => {
             const { setImageSizes = true } = options;  
@@ -116,6 +116,10 @@ export default class ImageUtils extends Plugin {
             if(numberAfterUmbracoMedia){
                 writer.setAttribute('data-mediaid', numberAfterUmbracoMedia, imageElement);
             }
+            writer.setAttribute('data-size', attributes.size, imageElement);
+            writer.setAttribute('data-caption', attributes.caption, imageElement);
+            writer.setAttribute('data-seo', attributes.seo, imageElement);
+
             // Inserting an image might've failed due to schema regulations.
             if (imageElement.parent) {
                 if (setImageSizes) {

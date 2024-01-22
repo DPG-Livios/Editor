@@ -21,3 +21,7 @@
 	margin: 0;
 	border: none;
 }
+
+.ck-image-insert-form > div{
+		margin-bottom: 0.5em !important;
+}

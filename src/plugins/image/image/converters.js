@@ -69,7 +69,7 @@ export function upcastImageFigure(imageUtils) {
  * @internal
  */
 export function upcastPicture(imageUtils) {
-    const sourceAttributeNames = ['srcset', 'media', 'type', 'sizes', 'data-mediaid'];
+    const sourceAttributeNames = ['srcset', 'media', 'type', 'sizes', 'data-mediaid', 'data-size', 'data-caption', 'data-seo'];
     const converter = (evt, data, conversionApi) => {
         const pictureViewElement = data.viewItem;
         // Do not convert <picture> if already consumed.

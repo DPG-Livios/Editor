@@ -29,6 +29,9 @@ export default class ReplaceImageSourceCommand extends Command {
         const element = this.editor.model.document.selection.getSelectedElement();
         this.isEnabled = imageUtils.isImage(element);
         this.value = this.isEnabled ? element.getAttribute('src') : null;
+        this.size = this.isEnabled ? element.getAttribute('data-size') : null;
+        this.caption = this.isEnabled ? element.getAttribute('data-caption') : null;
+        this.seo = this.isEnabled ? element.getAttribute('data-seo') : null;
     }
     /**
      * Executes the command.
@@ -42,6 +45,9 @@ export default class ReplaceImageSourceCommand extends Command {
         const imageUtils = this.editor.plugins.get('ImageUtils');
         this.editor.model.change(writer => {
             writer.setAttribute('src', options.source, image);
+            writer.setAttribute('data-size', options.size, image);
+            writer.setAttribute('data-caption', options.caption, image);
+            writer.setAttribute('data-seo', options.seo, image);
 
             const regex = /\/umbracomedia\/(\d+)/;
             const match = options.source.match(regex);

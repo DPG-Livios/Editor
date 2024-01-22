@@ -48,7 +48,7 @@ export default class ImageBlockEditing extends Plugin {
         // Converters 'alt' and 'srcset' are added in 'ImageEditing' plugin.
         schema.register('imageBlock', {
             inheritAllFrom: '$blockObject',
-            allowAttributes: ['alt', 'src', 'srcset', 'data-mediaid']
+            allowAttributes: ['alt', 'src', 'srcset', 'data-mediaid', 'data-size', '', 'data-caption', 'data-seo']
         });
 
         // dataFilter.allowAttributes( {
@@ -88,6 +88,9 @@ export default class ImageBlockEditing extends Plugin {
             .add(downcastImageAttribute(imageUtils, 'imageBlock', 'src'))
             .add(downcastImageAttribute(imageUtils, 'imageBlock', 'alt'))
             .add(downcastImageAttribute(imageUtils, 'imageBlock', 'data-mediaid'))
+            .add(downcastImageAttribute(imageUtils, 'imageBlock', 'data-size'))
+            .add(downcastImageAttribute(imageUtils, 'imageBlock', 'data-caption'))
+            .add(downcastImageAttribute(imageUtils, 'imageBlock', 'data-seo'))
             .add(downcastSrcsetAttribute(imageUtils, 'imageBlock'));
         // More image related upcasts are in 'ImageEditing' plugin.
         conversion.for('upcast')

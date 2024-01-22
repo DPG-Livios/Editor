@@ -109,11 +109,17 @@ export default class ImageInsertUI extends Plugin {
             if (dropdownView.isOpen) {
                 if (imageUtils.isImage(selectedElement)) {
                     imageInsertView.imageURLInputValue = replaceImageSourceCommand.value;
+                    imageInsertView.imageSizeInputValue = replaceImageSourceCommand.size;
+                    imageInsertView.imageCaptionInputValue = replaceImageSourceCommand.caption;
+                    imageInsertView.imageSEOInputValue = replaceImageSourceCommand.seo;
                     insertButtonView.label = t('Update');
                     insertImageViaUrlForm.label = t('Update image URL');
                 }
                 else {
                     imageInsertView.imageURLInputValue = '';
+                    imageInsertView.imageSizeInputValue = 'm';
+                    imageInsertView.imageCaptionInputValue = '';
+                    imageInsertView.imageSEOInputValue = '';
                     insertButtonView.label = t('Insert');
                     insertImageViaUrlForm.label = t('Insert image via URL');
                 }
@@ -133,10 +139,20 @@ export default class ImageInsertUI extends Plugin {
         function onSubmit() {
             const selectedElement = editor.model.document.selection.getSelectedElement();
             if (imageUtils.isImage(selectedElement)) {
-                editor.execute('replaceImageSource', { source: imageInsertView.imageURLInputValue });
+                editor.execute('replaceImageSource', { 
+                    source: imageInsertView.imageURLInputValue,
+                    size: imageInsertView.imageSizeInputValue,
+                    caption: imageInsertView.imageCaptionInputValue,
+                    seo: imageInsertView.imageSEOInputValue
+                });
             }
             else {
-                editor.execute('insertImage', { source: imageInsertView.imageURLInputValue });
+                editor.execute('insertImage', { 
+                    source: imageInsertView.imageURLInputValue,
+                    size: imageInsertView.imageSizeInputValue,
+                    caption: imageInsertView.imageCaptionInputValue,
+                    seo: imageInsertView.imageSEOInputValue
+                 });
             }
         }
         function closePanel() {

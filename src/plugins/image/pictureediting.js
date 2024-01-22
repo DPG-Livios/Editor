@@ -82,12 +82,12 @@ export default class PictureEditing extends Plugin {
         const editor = this.editor;
         if (editor.plugins.has('ImageBlockEditing')) {
             editor.model.schema.extend('imageBlock', {
-                allowAttributes: ['sources', 'data-mediaid']
+                allowAttributes: ['sources', 'data-mediaid', 'data-size', 'data-caption', 'data-seo']
             });
         }
         if (editor.plugins.has('ImageInlineEditing')) {
             editor.model.schema.extend('imageInline', {
-                allowAttributes: ['sources', 'data-mediaid']
+                allowAttributes: ['sources', 'data-mediaid', 'data-size', 'data-caption', 'data-seo']
             });
         }
         this._setupConversion();

@@ -51,13 +51,31 @@ export default class ImageEditing extends Plugin {
                 name: 'img',
                 key: 'srcset'
             },
-            model: 'srcset'
+            model: 'srcset' 
         }).attributeToAttribute({
             view: {
                 name: 'img',
                 key: 'data-mediaid'
             },
             model: 'data-mediaid'
+        }).attributeToAttribute({
+            view: {
+                name: 'img',
+                key: 'data-seo'
+            },
+            model: 'data-seo'
+        }).attributeToAttribute({
+            view: {
+                name: 'img',
+                key: 'data-caption'
+            },
+            model: 'data-caption'
+        }).attributeToAttribute({
+            view: {
+                name: 'img',
+                key: 'data-size'
+            },
+            model: 'data-size'
         });
         const insertImageCommand = new InsertImageCommand(editor);
         const replaceImageSourceCommand = new ReplaceImageSourceCommand(editor);

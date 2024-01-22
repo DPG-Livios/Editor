@@ -28,6 +28,9 @@ export default class ImageInsertPanelView extends View {
         this.insertButtonView = insertButtonView;
         this.cancelButtonView = cancelButtonView;
         this.set('imageURLInputValue', '');
+        this.set('imageSizeInputValue', 'm');
+        this.set('imageCaptionInputValue', '');
+        this.set('imageSEOInputValue', '');
         this.focusTracker = new FocusTracker();
         this.keystrokes = new KeystrokeHandler();
         this._focusables = new ViewCollection();
@@ -46,9 +49,27 @@ export default class ImageInsertPanelView extends View {
         for (const [integration, integrationView] of Object.entries(integrations)) {
             if (integration === 'insertImageViaUrl') {
                 integrationView.fieldView
-                    .bind('value').to(this, 'imageURLInputValue', (value) => value || '');
+                    .bind('value').to(this, 'imageURLInputValue',  (value) => value || '');
                 integrationView.fieldView.on('input', () => {
                     this.imageURLInputValue = integrationView.fieldView.element.value.trim();
+                });
+            }else if(integration === 'imageSizeInputValue'){
+                integrationView.fieldView
+                    .bind('isOn').to(this, 'imageSizeInputValue', (value) => value == "i");
+                integrationView.fieldView.on('execute', () => {
+                    this.imageSizeInputValue = integrationView.fieldView.isOn ? "i" : "m";
+                });
+            }else if(integration === 'imageCaptionInputValue'){
+                integrationView.fieldView
+                    .bind('value').to(this, 'imageCaptionInputValue', (value) => value || '');
+                integrationView.fieldView.on('input', () => {
+                    this.imageCaptionInputValue = integrationView.fieldView.element.value.trim();
+                });
+            }else if(integration === 'imageSEOInputValue'){
+                integrationView.fieldView
+                    .bind('value').to(this, 'imageSEOInputValue', (value) => value || '');
+                integrationView.fieldView.on('input', () => {
+                    this.imageSEOInputValue = integrationView.fieldView.element.value.trim();
                 });
             }
             integrationView.name = integration;
@@ -139,7 +160,8 @@ export default class ImageInsertPanelView extends View {
             class: 'ck-button-save',
             type: 'submit',
             withText: true,
-            isEnabled: this.imageURLInputValue
+            isEnabled: this.imageURLInputValue && this.imageSizeInputValue 
+                        && this.imageCaptionInputValue && this.imageSEOInputValue
         });
         cancelButtonView.set({
             label: t('Cancel'),

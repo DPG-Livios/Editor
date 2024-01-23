@@ -36,7 +36,7 @@ export default class ImageUploadUI extends Plugin {
                 allowMultipleFiles: true
             });
             view.buttonView.set({
-                label: t('Insert image'),
+                label: 'Afbeelding toevoegen',
                 icon: icons.image,
                 tooltip: true
             });

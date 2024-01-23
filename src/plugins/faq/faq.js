@@ -44,13 +44,14 @@ export default class Faq extends Plugin {
         schema.register( 'accordion', {
             // Behaves like a self-contained block object (e.g. a block image)
             // allowed in places where other blocks are allowed (e.g. directly in the root).
-            inheritAllFrom: '$blockObject'
+            inheritAllFrom: '$container'
         } );
         schema.register( 'accordion-item', {
             allowIn: 'accordion',
+            inheritAllFrom: '$container'
 
             // Allow content which is allowed in blocks (i.e. text with attributes).
-            allowContentOf: '$block'
+            //allowContentOf: '$block'
         } );
 
         schema.register( 'accordion-header', {
@@ -66,12 +67,12 @@ export default class Faq extends Plugin {
 
         schema.register( 'accordion-body', {
             // Cannot be split or left by the caret.
-            isLimit: true,
+            //isLimit: true,
             allowIn: 'accordion-item',
-            inheritAllFrom: '$block',
+            inheritAllFrom: '$container',
 
             // Allow content which is allowed in the root (e.g. paragraphs).
-            //allowContentOf: '$block'
+            allowContentOf: '$block'
         } );
     }
 

@@ -3,6 +3,7 @@ import { ClassicEditor as ClassicEditorBase } from '@ckeditor/ckeditor5-editor-c
 import { Bold, Italic, Subscript, Superscript } from '@ckeditor/ckeditor5-basic-styles';
 import { BlockQuote } from '@ckeditor/ckeditor5-block-quote';
 import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials';
+import { add } from '@ckeditor/ckeditor5-utils/src/translation-service';
 import { FindAndReplace } from '@ckeditor/ckeditor5-find-and-replace';
 import { Heading } from '@ckeditor/ckeditor5-heading';
 import { Image, ImageInsert } from './plugins/image';
@@ -30,7 +31,11 @@ import Schema from './plugins/schema/schema.js';
 import Iframe from './plugins/iframe/iframe.js';
 import Tip from './plugins/tip/tip.js';
 
-export default class Editor extends ClassicEditorBase { }
+export default class Editor extends ClassicEditorBase {}
+
+Object.assign( window.CKEDITOR_TRANSLATIONS[ 'nl' ].dictionary, {
+    'Insert media': 'Media toevoegen'
+} );
 
 Editor.builtinPlugins = [
 	AutoLink,

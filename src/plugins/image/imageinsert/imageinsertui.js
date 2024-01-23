@@ -51,7 +51,7 @@ export default class ImageInsertUI extends Plugin {
         const buttonView = this.dropdownView.buttonView;
         const panelView = this.dropdownView.panelView;
         buttonView.set({
-            label: t('Insert image'),
+            label: 'Afbeelding toevoegen',
             icon: icons.image,
             tooltip: true
         });
@@ -112,16 +112,16 @@ export default class ImageInsertUI extends Plugin {
                     imageInsertView.imageSizeInputValue = replaceImageSourceCommand.size;
                     imageInsertView.imageCaptionInputValue = replaceImageSourceCommand.caption;
                     imageInsertView.imageSEOInputValue = replaceImageSourceCommand.seo;
-                    insertButtonView.label = t('Update');
-                    insertImageViaUrlForm.label = t('Update image URL');
+                    insertButtonView.label = 'Updaten';
+                    //insertImageViaUrlForm.label = t('Update image URL');
                 }
                 else {
                     imageInsertView.imageURLInputValue = '';
                     imageInsertView.imageSizeInputValue = 'm';
                     imageInsertView.imageCaptionInputValue = '';
                     imageInsertView.imageSEOInputValue = '';
-                    insertButtonView.label = t('Insert');
-                    insertImageViaUrlForm.label = t('Insert image via URL');
+                    insertButtonView.label = 'Toevoegen';
+                    //insertImageViaUrlForm.label = t('Insert image via URL');
                 }
             }
             // Note: Use the low priority to make sure the following listener starts working after the

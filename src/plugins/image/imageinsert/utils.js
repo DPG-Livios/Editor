@@ -16,10 +16,10 @@ export function prepareIntegrations(editor) {
     const panelItems = editor.config.get('image.insert.integrations');
     const imageInsertUIPlugin = editor.plugins.get('ImageInsertUI');
     const PREDEFINED_INTEGRATIONS = {
-        'insertImageViaUrl': createLabeledInputView(editor.locale, 'Insert image via URL','https://example.com/image.png'),
-        'imageSizeInputValue': createLabeledSwitchView(editor.locale, "Image size", "Size"),
-        'imageCaptionInputValue': createLabeledTextareaView(editor.locale, "Insert image caption", "Image caption"),
-        'imageSEOInputValue': createLabeledTextareaView(editor.locale, "Insert SEO description", "SEO description"),
+        'insertImageViaUrl': createLabeledInputView(editor.locale, 'Url afbeelding','https://example.com/image.png'),
+        'imageSizeInputValue': createLabeledSwitchView(editor.locale, "Type afbeelding", "Size"),
+        'imageCaptionInputValue': createLabeledTextareaView(editor.locale, "Bijschrift", ""),
+        'imageSEOInputValue': createLabeledTextareaView(editor.locale, "Seo beschrijving", ""),
     };
     if (!panelItems) {
         return PREDEFINED_INTEGRATIONS;
@@ -120,67 +120,4 @@ export function createLabeledSwitchView(locale, label, placeholder) {
     });
     labeledInputView.fieldView.placeholder = placeholder;
     return labeledInputView;
-}
-
-export function createLabeledSelectView(locale) {
-    const titles = {};   
-    const t = locale.t;
-    const dropdownView = createDropdown( locale);
-    dropdownView.set({
-        label: t('Image size')
-    });
-
-    const options = [
-        { label: t('Normaal'), value: 'm' },
-        { label: t('Groot'), value: 'l' },
-        { label: t('Infographic'), value: 'i' }
-    ];
-
-    const itemDefinitions = new Collection();
-
-
-    for ( const option of options ) {
-        const def = {
-            id: option.label,
-            type: 'button',
-            model: new Model( {
-                id: option.label,
-                label: option.label,
-                //class: option.class,
-                role: 'menuitemradio',
-                withText: true
-            } )
-        };
-
-        //def.model.bind( 'isOn' ).to( headingCommand, 'value', value => value === option.value );
-        def.model.set( {
-            commandName: 'setSize',
-            commandValue: option.value
-        } );
-
-        // Add the option to the collection.
-        itemDefinitions.add( def );
-
-        titles[ option.value ] = option.label;
-    }
-    addListToDropdown( dropdownView, itemDefinitions, {
-        ariaLabel: t( 'Image size' ),
-        role: 'menu'
-    } );
-
-    /*dropdownView.buttonView.bind( 'label' ).to( headingCommand, 'value', paragraphCommand, 'value', ( value, para ) => {
-        const whichModel = value || para && 'paragraph';
-
-        if ( typeof whichModel === 'boolean' ) {
-            return defaultTitle;
-        }
-
-        // If none of the commands is active, display default title.
-        if ( !titles[ whichModel ] ) {
-            return defaultTitle;
-        }
-
-        return titles[ whichModel ];
-    } );*/
-    return dropdownView;
 }

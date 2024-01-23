@@ -24,7 +24,7 @@ export default class SchemaUI extends Plugin {
 			const button = new ButtonView();
 			const schemaCommand = editor.commands.get( 'addSchema' );
 
-			button.label = 'Add Schema.org tags';
+			button.label = 'Schema.org tags toevoegen';
 			button.icon = schemaIcon;
 			button.tooltip = true;
 

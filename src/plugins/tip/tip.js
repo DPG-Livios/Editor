@@ -35,6 +35,21 @@ export default class Tip extends Plugin {
             });
             return view;
         });
+
+        
+
+        editor.keystrokes.set('Enter', (data, stop) => {
+            const selection = editor.model.document.selection;
+            const position = selection.getFirstPosition();
+
+            const tipElement = this.findTipElement(position);
+            if (tipElement) {
+                editor.execute('insertParagraph', {
+                    position: editor.model.createPositionAfter(tipElement)
+                });
+                stop();
+            }
+        });
     }
     
 
@@ -42,6 +57,7 @@ export default class Tip extends Plugin {
         const schema = this.editor.model.schema;
 
         schema.register( 'tip', {
+            isLimit : false,
             inheritAllFrom: '$container'
             /*allowWhere: '$block',
             
@@ -65,5 +81,18 @@ export default class Tip extends Plugin {
                 classes: 'tip'
             }
         } );
+    }
+
+    findTipElement(selectedElement) {
+        if (!selectedElement) {
+            return null;
+        }
+        const hasTipClass = selectedElement.hasAttribute('class') && selectedElement.getAttribute('class').split(' ').includes('tip');
+        if (hasTipClass) {
+            
+            return selectedElement;
+        }
+
+        return this.findTipElement(selectedElement.parent);
     }
 }

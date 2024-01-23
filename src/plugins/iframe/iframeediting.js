@@ -25,6 +25,7 @@ export default class IframeEditing extends Plugin {
 
 		schema.register( 'iframe', {
 			allowAttributes: [ 'src', 'style', 'width', 'height' ],
+            isSelectable: true,
             // Behaves like a self-contained block object (e.g. a block image)
             // allowed in places where other blocks are allowed (e.g. directly in the root).
             inheritAllFrom: '$blockObject'

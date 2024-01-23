@@ -35,7 +35,7 @@ export default class TipCommand extends Command {
     }
 
     findTipElement(selectedElement) {
-        if (!selectedElement) {
+        if (!selectedElement || !(selectedElement.hasAttribute)) {
             return null;
         }
         const hasTipClass = selectedElement.hasAttribute('class') && selectedElement.getAttribute('class').split(' ').includes('tip');

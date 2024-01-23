@@ -75,6 +75,20 @@ export default class IframeUI extends Plugin {
 	}
 
 	_showUI() {
+		const selectedElement = this.editor.model.document.selection.getSelectedElement();
+
+		if(selectedElement?.name == "iframe"){
+			this.formView.element?.reset();
+			this.formView.srcInputView.fieldView.element.value = selectedElement.getAttribute("src");
+			this.formView.widthInputView.fieldView.element.value = selectedElement.getAttribute("width")?.replace("px","");
+			this.formView.heightInputView.fieldView.element.value = selectedElement.getAttribute("height")?.replace("px","");
+		}else{
+			this.formView.element?.reset();
+			this.formView.srcInputView.fieldView.value = '';
+			this.formView.widthInputView.fieldView.value = '500';
+			this.formView.heightInputView.fieldView.value = '300';
+		}
+
 		this._balloon.add( {
 			view: this.formView,
 			position: this._getBalloonPositionData()

@@ -4,10 +4,10 @@ export default class IframeCommand extends Command {
 
     refresh() {
         const model = this.editor.model;
-        const selection = model.document.selection.getFirstPosition().parent;
+        const selection = model.document.selection.getSelectedElement();
         
         this.isEnabled = true;
-        this.value = selection.name == "iframe";
+        this.value = selection?.name == "iframe";
     }
 
     execute({src, width, height}) {

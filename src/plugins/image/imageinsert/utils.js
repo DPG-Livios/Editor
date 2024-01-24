@@ -18,8 +18,8 @@ export function prepareIntegrations(editor) {
     const PREDEFINED_INTEGRATIONS = {
         'insertImageViaUrl': createLabeledInputView(editor.locale, 'Url afbeelding','https://example.com/image.png'),
         'imageSizeInputValue': createLabeledSwitchView(editor.locale, "Type afbeelding", "Size"),
-        'imageCaptionInputValue': createLabeledTextareaView(editor.locale, "Bijschrift", ""),
-        'imageSEOInputValue': createLabeledTextareaView(editor.locale, "Seo beschrijving", ""),
+        'imageCaptionInputValue': createLabeledTextareaView(editor.locale, "Bijschrift", " "),
+        'imageSEOInputValue': createLabeledTextareaView(editor.locale, "Seo beschrijving", " "),
     };
     if (!panelItems) {
         return PREDEFINED_INTEGRATIONS;

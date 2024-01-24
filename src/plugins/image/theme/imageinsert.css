@@ -22,6 +22,14 @@
 	border: none;
 }
 
+.ck-image-insert-form{
+	width: 400px;
+}
+
 .ck-image-insert-form > div{
-		margin-bottom: 0.5em !important;
+		margin-bottom: 0.7em !important;
+}
+
+.ck-image-insert-form > input, .ck-image-insert-form > textarea{
+	width: 100%;
 }

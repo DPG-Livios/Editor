@@ -30,6 +30,6 @@
 		margin-bottom: 0.7em !important;
 }
 
-.ck-image-insert-form > input, .ck-image-insert-form > textarea{
+.ck-image-insert-form input, .ck-image-insert-form textarea{
 	width: 100% !important;
 }

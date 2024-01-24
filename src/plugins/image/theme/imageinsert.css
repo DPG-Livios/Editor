@@ -23,7 +23,7 @@
 }
 
 .ck-image-insert-form{
-	width: 400px;
+	width: 400px !important;
 }
 
 .ck-image-insert-form > div{
@@ -31,5 +31,5 @@
 }
 
 .ck-image-insert-form > input, .ck-image-insert-form > textarea{
-	width: 100%;
+	width: 100% !important;
 }

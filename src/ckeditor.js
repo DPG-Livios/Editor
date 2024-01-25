@@ -80,6 +80,7 @@ Editor.defaultConfig = {
 				attributes: {
 					'data-categoryid' : true,
 					'data-article' : true,
+					'localLink' : true
 				}
 			}
 		]

@@ -8,7 +8,9 @@
 import { Plugin } from 'ckeditor5/src/core';
 import VideoEmbedCommand from './videoembedcommand';
 import './theme/videoembedediting.css';
+
 /**
+
  * The media embed editing feature.
  */
 export default class VideoEmbedEditing extends Plugin {
@@ -32,54 +34,64 @@ export default class VideoEmbedEditing extends Plugin {
         editor.commands.add('video', new VideoEmbedCommand(editor));
         // Configure the schema.
         editor.model.schema.register('video', {
-            isObject: true,
-            isBlock: true,
-            allowWhere: '$block',
+            inheritAllFrom: '$blockObject',
             allowAttributes: ['class', 'data-title', 'data-description', 'controls'],
             allowContent: 'source',
         });
+        editor.model.schema.register('source', {
+            inheritAllFrom: '$blockObject',
+            allowAttributes: ['src', 'type'],
+            allowWhere: 'video'
+        });
+        // Define a conversion for upcasting
         editor.conversion.for('upcast').elementToElement({
             view: 'video',
-            model: (viewElement, modelWriter) => {
-                const srcElements = viewElement.getChild('source');
-                const srcs = srcElements.map(srcElement => srcElement.getAttribute('src')).toArray();
+            model: (viewElement, { writer }) => {
+                const title = viewElement.getAttribute('data-title') || '';
+                const description = viewElement.getAttribute('data-description') || '';
 
-                return modelWriter.createElement('video', {
+                const videoElement = writer.createElement('video', {
                     class: viewElement.getAttribute('class'),
-                    'data-title': viewElement.getAttribute('data-title'),
-                    'data-description': viewElement.getAttribute('data-description'),
-                    controls: viewElement.getAttribute('controls'),
-                    src: srcs,
+                    'data-title': title,
+                    'data-description': description,
+                    controls: viewElement.hasAttribute('controls'),
                 });
+
+                return videoElement;
             },
         });
 
-        // Define a converter from the model to the view
-        editor.conversion.for('dataDowncast').elementToElement({
+        // Define a conversion for downcasting
+        editor.conversion.for('downcast').elementToElement({
             model: 'video',
-            view: (modelElement, viewWriter) => {
-                const video = viewWriter.createContainerElement('video', {
+            view: (modelElement, { writer }) => {
+                const title = modelElement.getAttribute('data-title') || '';
+                const description = modelElement.getAttribute('data-description') || '';
+                // Create the parent video element
+                const videoElement = writer.createContainerElement('video', {
                     class: modelElement.getAttribute('class'),
-                    'data-title': modelElement.getAttribute('data-title'),
-                    'data-description': modelElement.getAttribute('data-description'),
-                    controls: modelElement.getAttribute('controls'),
-                });
-
-                modelElement.getAttributeKeys().forEach(key => {
-                    if (key.startsWith('data-')) {
-                        video.setAttribute(key, modelElement.getAttribute(key));
-                    }
-                });
-
-                modelElement.getChild('src').forEach(child => {
-                    const src = viewWriter.createAttributeElement('source', {
+                    'data-title': title,
+                    'data-description': description,
+                    controls: '',
+                }, Array.from(modelElement.getChildren('source')).map(child => {
+                    return writer.createContainerElement('source', {
                         src: child.getAttribute('src'),
                         type: child.getAttribute('type'),
                     });
-                    viewWriter.insert(video, viewWriter.createPositionAt(video, 'end'), src);
-                });
+                }) );
 
-                return toWidget(video, viewWriter, { label: 'video widget' });
+                return videoElement;
+            },
+        });
+
+        // Define a conversion for downcasting
+        editor.conversion.for('downcast').elementToElement({
+            model: 'source',
+            view: (modelElement, { writer }) => {
+                return writer.createContainerElement('source', {
+                    src: modelElement.getAttribute('src'),
+                    type: modelElement.getAttribute('type'),
+                });
             },
         });
     }

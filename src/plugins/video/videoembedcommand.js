@@ -4,7 +4,7 @@
  */
 import { Command } from 'ckeditor5/src/core';
 import { findOptimalInsertionRange } from 'ckeditor5/src/widget';
-import { getSelectedMediaModelWidget, insertMedia } from './utils';
+import { getSelectedVideoWidget, insertVideo } from './utils';
 /**
  * The insert media command.
  *
@@ -23,9 +23,12 @@ export default class VideoEmbedCommand extends Command {
     refresh() {
         const model = this.editor.model;
         const selection = model.document.selection;
-        const selectedMedia = getSelectedMediaModelWidget(selection);
-        this.value = selectedMedia ? selectedMedia.getAttribute('url') : undefined;
-        this.isEnabled = isMediaSelected(selection) || isAllowedInParent(selection, model);
+        const selectedMedia = getSelectedVideoWidget(selection);
+        this.title = selectedMedia ? selectedMedia.getAttribute('data-title') : undefined;
+        this.description = selectedMedia ? selectedMedia.getAttribute('data-description') : undefined;
+        this.set('webm', selectedMedia ?  Array.from(selectedMedia.getChildren()).find(child => child.getAttribute('type') === 'video/webm')?.getAttribute('src') : undefined);
+        this.set('mp4', selectedMedia ?  Array.from(selectedMedia.getChildren()).find(child => child.getAttribute('type') === 'video/mp4')?.getAttribute('src') : undefined);
+        this.isEnabled = isVideoSelected(selection) || isAllowedInParent(selection, model);
     }
     /**
      * Executes the command, which either:
@@ -36,17 +39,35 @@ export default class VideoEmbedCommand extends Command {
      * @fires execute
      * @param url The URL of the media.
      */
-    execute(url) {
+    execute(title, description, webm, mp4) {
         const model = this.editor.model;
         const selection = model.document.selection;
-        const selectedMedia = getSelectedMediaModelWidget(selection);
-        if (selectedMedia) {
+        const selectedVideo = getSelectedVideoWidget(selection);
+        if (selectedVideo) {
+            console.log(selectedVideo)
             model.change(writer => {
-                writer.setAttribute('url', url, selectedMedia);
+                writer.setAttribute('data-title', title, selectedVideo);
+                writer.setAttribute('data-description', description, selectedVideo);
+                // Remove existing source elements
+                Array.from(selectedVideo.getChildren()).forEach(child => {
+                    writer.remove(child);
+                });
+                
+                // Create source elements and append them to the video element
+                const sourceElement1 = writer.createElement('source', {
+                    src: webm ,
+                    type: 'video/webm',
+                });
+                const sourceElement2 = writer.createElement('source', {
+                    src: mp4,
+                    type: 'video/mp4',
+                });
+                writer.append(sourceElement1, selectedVideo);
+                writer.append(sourceElement2, selectedVideo);
             });
         }
         else {
-            insertMedia(model, url, selection, true);
+            insertVideo(model, title, description, webm, mp4, selection, true);
         }
     }
 }
@@ -60,12 +81,12 @@ function isAllowedInParent(selection, model) {
     if (parent.isEmpty && !model.schema.isLimit(parent)) {
         parent = parent.parent;
     }
-    return model.schema.checkChild(parent, 'media');
+    return model.schema.checkChild(parent, 'video');
 }
 /**
  * Checks if the media object is selected.
  */
-function isMediaSelected(selection) {
+function isVideoSelected(selection) {
     const element = selection.getSelectedElement();
-    return !!element && element.name === 'media';
+    return !!element && element.name === 'video';
 }

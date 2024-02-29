@@ -128,17 +128,15 @@ export default class VideoFormView extends View {
         this.resetFormStatus();
         var value = true;
         var inputs = [
-            {input:this.titleInputView, validators: this._validators},
-            {input:this.descriptionInputView, validators: this._validators},
-            {input:this.webmInputView, validators: this._validators},
-            {input:this.mp4InputView, validators: this._validators}
+            {input:this.titleInputView, validators: [this._validators[0]], type: "title"},
+            {input:this.descriptionInputView, validators: [this._validators[0]], type: "description"},
+            {input:this.webmInputView, validators: this._validators, type: "webm"},
+            {input:this.mp4InputView, validators: this._validators, type: "mp4"}
         ];
         inputs.forEach(input => {
             for (const validator of input.validators) {
-                const errorText = validator(this, input.input);
-                // One error per field is enough.
+                const errorText = validator(input.input, input.type);
                 if (errorText) {
-                    // Apply updated error.
                     input.input.errorText = errorText;
                     value = false;
                 }

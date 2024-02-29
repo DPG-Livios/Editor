@@ -48,8 +48,8 @@ export function isMediaWidget(viewElement) {
  * </figure>
  * ```
  */
-export function createMediaFigureElement(writer, registry, url, options) {
-    return writer.createContainerElement('figure', { class: 'media' }, [
+export function createVideoElement(writer, registry, url, options) {
+    return writer.createContainerElement('video', { class: 'ratio ratio-16x9', controls:'' }, [
         registry.getMediaViewElement(writer, url, options),
         writer.createSlot()
     ]);
@@ -57,9 +57,9 @@ export function createMediaFigureElement(writer, registry, url, options) {
 /**
  * Returns a selected media element in the model, if any.
  */
-export function getSelectedMediaModelWidget(selection) {
+export function getSelectedVideoWidget(selection) {
     const selectedElement = selection.getSelectedElement();
-    if (selectedElement && selectedElement.is('element', 'media')) {
+    if (selectedElement && selectedElement.is('element', 'video')) {
         return selectedElement;
     }
     return null;
@@ -74,12 +74,34 @@ export function getSelectedMediaModelWidget(selection) {
  * @param findOptimalPosition If true it will try to find optimal position to insert media without breaking content
  * in which a selection is.
  */
-export function insertMedia(model, url, selectable, findOptimalPosition) {
-    model.change(writer => {
-        const mediaElement = writer.createElement('media', { url });
-        model.insertObject(mediaElement, selectable, null, {
+export function insertVideo(model, title, description, webm, mp4, selectable, findOptimalPosition) {
+    model.change(modelWriter => {
+        const videoElement = modelWriter.createElement('video', {
+            class: 'ratio ratio-16x9',
+            'data-title': title,
+            'data-description': description,
+            //controls: '',
+        });
+
+        // Create source elements and append them to the video element
+        const sourceElement1 = modelWriter.createElement('source', {
+            src: webm ,
+            type: 'video/webm',
+        });
+        const sourceElement2 = modelWriter.createElement('source', {
+            src: mp4,
+            type: 'video/mp4',
+        });
+        modelWriter.append(sourceElement1, videoElement);
+        modelWriter.append(sourceElement2, videoElement);
+        
+        
+            model.insertContent(videoElement);
+        
+        /*
+        model.insertObject(videoElement, selectable, null, {
             setSelection: 'on',
             findOptimalPosition: findOptimalPosition ? 'auto' : undefined
-        });
+        });*/
     });
 }

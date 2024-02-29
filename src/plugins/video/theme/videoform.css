@@ -10,10 +10,19 @@
 	align-items: flex-start;
 	flex-direction: column;
 	flex-wrap: wrap;
+	width: 400px !important;
+	
+	& > * {
+		padding: var(--ck-spacing-large);
+	}
+
+	& .ck-input-text, & .ck-form__row {
+		width:100% !important;
+	}
 
 	& .ck-labeled-field-view {
 		display: inline-block;
-		padding: var(--ck-spacing-large);
+		width:100% !important;
 	}
 
 	& .ck-label {

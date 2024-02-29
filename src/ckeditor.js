@@ -29,6 +29,7 @@ import Faq from './plugins/faq/faq.js';
 import Schema from './plugins/schema/schema.js';
 import Iframe from './plugins/iframe/iframe.js';
 import Tip from './plugins/tip/tip.js';
+import { Video } from './plugins/video/video.js';
 import { GeneralHtmlSupport } from '@ckeditor/ckeditor5-html-support';
 
 export default class Editor extends ClassicEditorBase {}
@@ -69,7 +70,8 @@ Editor.builtinPlugins = [
 	Faq, Schema, Iframe,
 	Anchor,
 	UploadImage, Tip,
-	GeneralHtmlSupport
+	GeneralHtmlSupport,
+	Video
 ];
 
 Editor.defaultConfig = {
@@ -101,7 +103,7 @@ Editor.defaultConfig = {
 			'undo', 'redo',
 			'|', 'heading',
 			'|', 'bold', 'italic', 'subscript', 'superscript', 'bulletedList', 'numberedList', 'blockQuote',
-			'|', 'link', 'imageUpload', 'insertTable', 'mediaEmbed', 'imageInsert', 'specialCharacters',
+			'|', 'link', 'imageUpload', 'insertTable', /*'mediaEmbed',*/ 'video', 'imageInsert', 'specialCharacters',
 			'|', 'sourceEditing', 'removeFormat', 'showBlocks',
 			'|', 'findAndReplace',
 			'|', 'anchor', 'faq', 'schema', 'iframe', 'tip'

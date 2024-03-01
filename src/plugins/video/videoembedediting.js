@@ -73,12 +73,14 @@ export default class VideoEmbedEditing extends Plugin {
                     'data-title': title,
                     'data-description': description,
                     controls: '',
-                }, Array.from(modelElement.getChildren('source')).map(child => {
-                    return writer.createContainerElement('source', {
+                }/*, Array.from(modelElement.getChildren('source')).map(child => {
+                    return writer.createContainerElement('source'/*, 
+                    {
                         src: child.getAttribute('src'),
                         type: child.getAttribute('type'),
-                    });
-                }) );
+                    }
+                    );
+                })*/ );
 
                 return videoElement;
             },
@@ -88,6 +90,7 @@ export default class VideoEmbedEditing extends Plugin {
         editor.conversion.for('downcast').elementToElement({
             model: 'source',
             view: (modelElement, { writer }) => {
+                console.debug(modelElement)
                 return writer.createContainerElement('source', {
                     src: modelElement.getAttribute('src'),
                     type: modelElement.getAttribute('type'),

@@ -76,12 +76,6 @@ export function getSelectedVideoWidget(selection) {
  */
 export function insertVideo(model, title, description, webm, mp4, selectable, findOptimalPosition) {
     model.change(modelWriter => {
-        const videoElement = modelWriter.createElement('video', {
-            class: 'ratio ratio-16x9',
-            'data-title': title,
-            'data-description': description,
-            //controls: '',
-        });
 
         // Create source elements and append them to the video element
         const sourceElement1 = modelWriter.createElement('source', {
@@ -91,6 +85,13 @@ export function insertVideo(model, title, description, webm, mp4, selectable, fi
         const sourceElement2 = modelWriter.createElement('source', {
             src: mp4,
             type: 'video/mp4',
+        });
+        const videoElement = modelWriter.createElement('video', {
+            class: 'ratio ratio-16x9',
+            'data-title': title,
+            'data-description': description,
+            //source: [sourceElement1, sourceElement2]
+            //controls: '',
         });
         modelWriter.append(sourceElement1, videoElement);
         modelWriter.append(sourceElement2, videoElement);

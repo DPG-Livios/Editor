@@ -52,7 +52,6 @@ export default class VideoEmbedUI extends Plugin {
             button.on('open', () => {
                 form.disableCssTransitions();
                 const selectedVideo = getSelectedVideoWidget(editor.model.document.selection);
-                console.log(command)
                 if (selectedVideo) {
                     form.titleInputView.fieldView.element.value = command.title;
                     form.descriptionInputView.fieldView.element.value = command.description;

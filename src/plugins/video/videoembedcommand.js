@@ -44,7 +44,6 @@ export default class VideoEmbedCommand extends Command {
         const selection = model.document.selection;
         const selectedVideo = getSelectedVideoWidget(selection);
         if (selectedVideo) {
-            console.log(selectedVideo)
             model.change(writer => {
                 writer.setAttribute('data-title', title, selectedVideo);
                 writer.setAttribute('data-description', description, selectedVideo);

@@ -6,7 +6,8 @@
  * @module media-embed/mediaembedui
  */
 import { Plugin } from 'ckeditor5/src/core';
-import { createDropdown, CssTransitionDisablerMixin } from 'ckeditor5/src/ui';
+import CssTransitionDisablerMixin from '@ckeditor/ckeditor5-ui/src/bindings/csstransitiondisablermixin';
+import { createDropdown } from './ui/utils';
 import VideoFormView from './ui/videoformview';
 import VideoEmbedEditing from './videoembedediting';
 import mediaIcon from './theme/icons/media.svg';
@@ -80,12 +81,13 @@ export default class VideoEmbedUI extends Plugin {
             dropdown.on('submit', () => {
                 if (form.isValid()) {
                     editor.execute('video', form.videoTitleInputValue, form.videoDescriptionInputValue, form.videoWebmInputValue, form.videoMP4InputValue);
+                    dropdown.isOpen = false;
                     editor.editing.view.focus();
                 }
             });
             dropdown.on('change:isOpen', () => form.resetFormStatus());
             dropdown.on('cancel', () => {
-                editor.editing.view.focus();
+                form.resetFormStatus();
             });
             form.delegate('submit', 'cancel').to(dropdown);
             form.titleInputView.fieldView.bind('value').to(command, 'value');
@@ -95,7 +97,7 @@ export default class VideoEmbedUI extends Plugin {
         dropdown.bind('isEnabled').to(command, 'isEnabled');
 
         button.set({
-            label: t('Insert media'),
+            label: 'Video toevoegen',
             icon: mediaIcon,
             tooltip: true
         });

@@ -3,7 +3,7 @@
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
-.ck.ck-image-insert-form {
+.ck.ck-video-form {
 	&:focus {
 		/* See: https://github.com/ckeditor/ckeditor5/issues/4773 */
 		outline: none;
@@ -21,7 +21,7 @@
 		flex-grow: 1;
 	}
 
-	&.ck-image-insert-form__action-row {
+	&.ck-video-form__action-row {
 		margin-top: var(--ck-spacing-standard);
 
 		& .ck-button-save,

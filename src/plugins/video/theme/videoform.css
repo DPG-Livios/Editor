@@ -5,7 +5,13 @@
 
 @import "@ckeditor/ckeditor5-ui/theme/mixins/_rwd.css";
 
-.ck.ck-media-form {
+.ck.ck-content{
+	video{
+		max-width: 600px;
+	}
+}
+
+.ck.ck-video-form {
 	display: flex;
 	align-items: flex-start;
 	flex-direction: column;

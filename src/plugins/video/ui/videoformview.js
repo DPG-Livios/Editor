@@ -57,7 +57,7 @@ export default class VideoFormView extends View {
             attributes: {
                 class: [
                     'ck',
-                    'ck-media-form'
+                    'ck-video-form'
                 ],
                 tabindex: '-1'
             },
@@ -71,7 +71,7 @@ export default class VideoFormView extends View {
                         this.saveButtonView,
                         this.cancelButtonView
                     ],
-                    class: 'ck-image-insert-form__action-row'
+                    class: 'ck-video-form__action-row'
                 })
             ]
         });

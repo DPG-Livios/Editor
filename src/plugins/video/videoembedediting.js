@@ -46,7 +46,7 @@ export default class VideoEmbedEditing extends Plugin {
         // Define a conversion for upcasting
         editor.conversion.for('upcast').elementToElement({
             view: 'video',
-            model: (viewElement, { writer }) => {
+            model: (viewElement, { writer }) => {                
                 const title = viewElement.getAttribute('data-title') || '';
                 const description = viewElement.getAttribute('data-description') || '';
 
@@ -57,7 +57,29 @@ export default class VideoEmbedEditing extends Plugin {
                     controls: viewElement.hasAttribute('controls'),
                 });
 
+                Array.from(viewElement.getChildren('source'))
+                .forEach(child => {
+                    var sourceElement = writer.createElement('source', 
+                    {
+                        src: child.getAttribute('src'),
+                        type: child.getAttribute('type'),
+                    });
+                    writer.append(sourceElement, videoElement); 
+                }) 
+                
                 return videoElement;
+            },
+        });
+        // Define a conversion for upcasting
+        editor.conversion.for('upcast').elementToElement({
+            view: 'source',
+            model: (viewElement, { writer }) => {
+                const sourceElement = writer.createElement('source', {
+                    src: viewElement.getAttribute('src'),
+                    type: viewElement.getAttribute('type')
+                });
+
+                return sourceElement;
             },
         });
 
@@ -67,30 +89,21 @@ export default class VideoEmbedEditing extends Plugin {
             view: (modelElement, { writer }) => {
                 const title = modelElement.getAttribute('data-title') || '';
                 const description = modelElement.getAttribute('data-description') || '';
-                // Create the parent video element
+                
                 const videoElement = writer.createContainerElement('video', {
                     class: modelElement.getAttribute('class'),
                     'data-title': title,
                     'data-description': description,
                     controls: '',
-                }/*, Array.from(modelElement.getChildren('source')).map(child => {
-                    return writer.createContainerElement('source'/*, 
-                    {
-                        src: child.getAttribute('src'),
-                        type: child.getAttribute('type'),
-                    }
-                    );
-                })*/ );
+                });
 
                 return videoElement;
             },
         });
-
         // Define a conversion for downcasting
         editor.conversion.for('downcast').elementToElement({
             model: 'source',
             view: (modelElement, { writer }) => {
-                console.debug(modelElement)
                 return writer.createContainerElement('source', {
                     src: modelElement.getAttribute('src'),
                     type: modelElement.getAttribute('type'),

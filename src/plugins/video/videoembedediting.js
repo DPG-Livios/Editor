@@ -35,11 +35,13 @@ export default class VideoEmbedEditing extends Plugin {
         // Configure the schema.
         editor.model.schema.register('video', {
             inheritAllFrom: '$blockObject',
+            isSelectable: true,
             allowAttributes: ['class', 'data-title', 'data-description', 'controls'],
             allowContent: 'source',
         });
         editor.model.schema.register('source', {
             inheritAllFrom: '$blockObject',
+            isSelectable: true,
             allowAttributes: ['src', 'type'],
             allowWhere: 'video'
         });

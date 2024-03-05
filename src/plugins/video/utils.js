@@ -87,11 +87,8 @@ export function insertVideo(model, title, description, webm, mp4, selectable, fi
             type: 'video/mp4',
         });
         const videoElement = modelWriter.createElement('video', {
-            class: 'ratio ratio-16x9',
             'data-title': title,
             'data-description': description,
-            //source: [sourceElement1, sourceElement2]
-            //controls: '',
         });
         modelWriter.append(sourceElement1, videoElement);
         modelWriter.append(sourceElement2, videoElement);

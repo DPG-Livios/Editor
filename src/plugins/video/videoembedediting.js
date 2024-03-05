@@ -64,16 +64,6 @@ export default class VideoEmbedEditing extends Plugin {
                     'data-description': description,
                     controls: viewElement.hasAttribute('controls'),
                 });
-
-                Array.from(viewElement.getChildren('source'))
-                .forEach(child => {
-                    var sourceElement = writer.createElement('source', 
-                    {
-                        src: child.getAttribute('src'),
-                        type: child.getAttribute('type'),
-                    });
-                    writer.append(sourceElement, videoElement); 
-                }) 
                 
                 return videoElement;
             },
@@ -126,13 +116,24 @@ export default class VideoEmbedEditing extends Plugin {
             }
         });
         // Define a conversion for downcasting
-        editor.conversion.for('downcast').elementToElement({
+        editor.conversion.for('dataDowncast').elementToElement({
             model: 'source',
             view: (modelElement, { writer }) => {
                 return writer.createContainerElement('source', {
                     src: modelElement.getAttribute('src'),
                     type: modelElement.getAttribute('type'),
                 });
+            },
+        });
+        // Define a conversion for downcasting
+        editor.conversion.for('editingDowncast').elementToElement({
+            model: 'source',
+            view: (modelElement, { writer }) => {
+                var sourceElement = writer.createContainerElement('source', {
+                    src: modelElement.getAttribute('src'),
+                    type: modelElement.getAttribute('type'),
+                });
+                return toWidget(sourceElement, writer, 'source');
             },
         });
     }

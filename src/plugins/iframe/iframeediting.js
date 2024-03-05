@@ -32,7 +32,7 @@ export default class IframeEditing extends Plugin {
         } );
 	}
 	_defineConverters() {
-		const conversion = this.editor.conversion;
+		const conversion= this.editor.conversion;
 		
 		conversion.for('upcast').elementToElement({
             model: 'iframe',

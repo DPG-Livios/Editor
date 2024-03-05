@@ -6,6 +6,7 @@
  * @module media-embed/mediaembedediting
  */
 import { Plugin } from 'ckeditor5/src/core';
+import { Widget, toWidget, toWidgetEditable } from '@ckeditor/ckeditor5-widget';
 import VideoEmbedCommand from './videoembedcommand';
 import './theme/videoembedediting.css';
 
@@ -14,6 +15,10 @@ import './theme/videoembedediting.css';
  * The media embed editing feature.
  */
 export default class VideoEmbedEditing extends Plugin {
+    static get requires() {
+        return [ Widget ];
+    }
+
     /**
      * @inheritDoc
      */
@@ -34,8 +39,9 @@ export default class VideoEmbedEditing extends Plugin {
         editor.commands.add('video', new VideoEmbedCommand(editor));
         // Configure the schema.
         editor.model.schema.register('video', {
-            inheritAllFrom: '$blockObject',
+            inheritAllFrom: '$container',
             isSelectable: true,
+            isInline:true,
             allowAttributes: ['class', 'data-title', 'data-description', 'controls'],
             allowContent: 'source',
         });
@@ -86,14 +92,14 @@ export default class VideoEmbedEditing extends Plugin {
         });
 
         // Define a conversion for downcasting
-        editor.conversion.for('downcast').elementToElement({
+        editor.conversion.for('dataDowncast').elementToElement({
             model: 'video',
             view: (modelElement, { writer }) => {
                 const title = modelElement.getAttribute('data-title') || '';
                 const description = modelElement.getAttribute('data-description') || '';
                 
                 const videoElement = writer.createContainerElement('video', {
-                    class: modelElement.getAttribute('class'),
+                    class: 'ratio ratio-16x9 ck-widget ck-widget-selected',
                     'data-title': title,
                     'data-description': description,
                     controls: '',
@@ -101,6 +107,23 @@ export default class VideoEmbedEditing extends Plugin {
 
                 return videoElement;
             },
+        });
+
+        editor.conversion.for('editingDowncast').elementToElement({
+            model: 'video',
+            view: (modelElement, { writer }) => {
+                const title = modelElement.getAttribute('data-title') || '';
+                const description = modelElement.getAttribute('data-description') || '';
+                
+                const videoElement = writer.createContainerElement('video', {
+                    class: 'ratio ratio-16x9 ck-widget ck-widget-selected',
+                    'data-title': title,
+                    'data-description': description,
+                    controls: '',
+                });
+    
+                return toWidget(videoElement, writer, 'video');
+            }
         });
         // Define a conversion for downcasting
         editor.conversion.for('downcast').elementToElement({

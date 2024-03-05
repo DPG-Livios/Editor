@@ -24,6 +24,7 @@ export default class VideoEmbedCommand extends Command {
         const model = this.editor.model;
         const selection = model.document.selection;
         const selectedMedia = getSelectedVideoWidget(selection);
+        console.log(selection.getSelectedElement(), selectedMedia)
         this.title = selectedMedia ? selectedMedia.getAttribute('data-title') : undefined;
         this.description = selectedMedia ? selectedMedia.getAttribute('data-description') : undefined;
         this.set('webm', selectedMedia ?  Array.from(selectedMedia.getChildren()).find(child => child.getAttribute('type') === 'video/webm')?.getAttribute('src') : undefined);

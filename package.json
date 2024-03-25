@@ -1,7 +1,7 @@
 {
   "name": "livios-editor",
   "author": "Livios",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "private": true,
   "dependencies": {
     "@ckeditor/ckeditor5-basic-styles": "40.1.0",
@@ -9,7 +9,6 @@
     "@ckeditor/ckeditor5-editor-classic": "40.1.0",
     "@ckeditor/ckeditor5-essentials": "40.1.0",
     "@ckeditor/ckeditor5-find-and-replace": "40.1.0",
-    "@ckeditor/ckeditor5-heading": "40.1.0",
     "@ckeditor/ckeditor5-html-support": "40.1.0",
     "@ckeditor/ckeditor5-image": "40.1.0",
     "@ckeditor/ckeditor5-indent": "40.1.0",
@@ -23,7 +22,8 @@
     "@ckeditor/ckeditor5-source-editing": "40.1.0",
     "@ckeditor/ckeditor5-special-characters": "40.1.0",
     "@ckeditor/ckeditor5-table": "40.1.0",
-    "@ckeditor/ckeditor5-word-count": "40.1.0"
+    "@ckeditor/ckeditor5-word-count": "40.1.0",
+    "@ckeditor/ckeditor5-utils": "40.1.0"
   },
   "devDependencies": {
     "@ckeditor/ckeditor5-dev-translations": "39.5.0",

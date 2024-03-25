@@ -15,9 +15,9 @@ module.exports = {
         // ...
 
         new CKEditorTranslationsPlugin( {
-            // See https://ckeditor.com/docs/ckeditor5/latest/features/ui-language.html
-            language: 'nl',
-            addMainLanguageTranslationsToAllAssets: true
+            language: 'nl',additionalLanguages: ['fr'],
+            addMainLanguageTranslationsToAllAssets: true,
+            packageNamesPattern: /(?:src[/\\]plugins)?[/\\]ckeditor5-[^/\\]+[/\\]/ 
         } )
     ],
     module: {

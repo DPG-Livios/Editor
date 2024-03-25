@@ -4,7 +4,7 @@ import { Bold, Italic, Subscript, Superscript } from '@ckeditor/ckeditor5-basic-
 import { BlockQuote } from '@ckeditor/ckeditor5-block-quote';
 import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials';
 import { FindAndReplace } from '@ckeditor/ckeditor5-find-and-replace';
-import { Heading } from './plugins/heading';
+import { Heading } from './plugins/ckeditor5-heading';
 import { Image, ImageInsert } from './plugins/image';
 import { AutoLink, Link } from '@ckeditor/ckeditor5-link';
 import { List } from '@ckeditor/ckeditor5-list';
@@ -14,6 +14,7 @@ import { PasteFromOffice } from '@ckeditor/ckeditor5-paste-from-office';
 import { RemoveFormat } from '@ckeditor/ckeditor5-remove-format';
 import { ShowBlocks } from '@ckeditor/ckeditor5-show-blocks';
 import { SourceEditing } from '@ckeditor/ckeditor5-source-editing';
+import { Indent } from '@ckeditor/ckeditor5-indent';
 import {
 	SpecialCharacters,
 	SpecialCharactersCurrency,
@@ -35,8 +36,12 @@ import { GeneralHtmlSupport } from '@ckeditor/ckeditor5-html-support';
 export default class Editor extends ClassicEditorBase {}
 
 Object.assign( window.CKEDITOR_TRANSLATIONS[ 'nl' ].dictionary, {
-    'Insert media': 'Media toevoegen'
+    'Insert media': 'Media toevoegen',
+    'Title': 'Titel'
 } );
+/*Object.assign( window.CKEDITOR_TRANSLATIONS[ 'fr' ].dictionary, {
+    'Title': 'Titre'
+} );*/
 
 Editor.builtinPlugins = [
 	AutoLink,
@@ -71,7 +76,8 @@ Editor.builtinPlugins = [
 	Anchor,
 	UploadImage, Tip,
 	GeneralHtmlSupport,
-	Video
+	Video,
+	Indent
 ];
 
 Editor.defaultConfig = {

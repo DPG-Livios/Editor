@@ -4,7 +4,7 @@ import { Bold, Italic, Subscript, Superscript } from '@ckeditor/ckeditor5-basic-
 import { BlockQuote } from '@ckeditor/ckeditor5-block-quote';
 import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials';
 import { FindAndReplace } from '@ckeditor/ckeditor5-find-and-replace';
-import { Heading } from '@ckeditor/ckeditor5-heading';
+import { Heading } from './plugins/heading';
 import { Image, ImageInsert } from './plugins/image';
 import { AutoLink, Link } from '@ckeditor/ckeditor5-link';
 import { List } from '@ckeditor/ckeditor5-list';

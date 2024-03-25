@@ -1,7 +1,7 @@
 {
   "name": "livios-editor",
   "author": "Livios",
-  "version": "1.5.4",
+  "version": "1.6.0",
   "private": true,
   "dependencies": {
     "@ckeditor/ckeditor5-basic-styles": "40.1.0",

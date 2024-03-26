@@ -98,7 +98,6 @@ export default class AnchorEditing extends Plugin {
 		editor.commands.add( 'unanchor', new UnanchorCommand( editor ) );
 
 		const anchorDecorators = getLocalizedDecorators( editor.t, normalizeDecorators( editor.config.get( 'anchor.decorators' ) ) );
-
 		this._enableAutomaticDecorators( anchorDecorators.filter( item => item.mode === DECORATOR_AUTOMATIC ) );
 		this._enableManualDecorators( anchorDecorators.filter( item => item.mode === DECORATOR_MANUAL ) );
 
@@ -184,7 +183,6 @@ export default class AnchorEditing extends Plugin {
 
 		manualDecoratorDefinitions.forEach( decorator => {
 			editor.model.schema.extend( '$text', { allowAttributes: decorator.id } );
-
 			// Keeps reference to manual decorator to decode its name to attributes during downcast.
 			manualDecorators.add( new ManualDecorator( decorator ) );
 

@@ -138,6 +138,7 @@ export default class ImageInsertUI extends Plugin {
         });
         function onSubmit() {
             const selectedElement = editor.model.document.selection.getSelectedElement();
+            
             if (imageUtils.isImage(selectedElement)) {
                 editor.execute('replaceImageSource', { 
                     source: imageInsertView.imageURLInputValue,

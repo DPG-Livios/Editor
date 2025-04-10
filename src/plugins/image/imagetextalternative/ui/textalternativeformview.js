@@ -7,7 +7,7 @@
  */
 import { ButtonView, FocusCycler, LabeledFieldView, View, ViewCollection, createLabeledInputText, submitHandler } from 'ckeditor5/src/ui';
 import { FocusTracker, KeystrokeHandler } from 'ckeditor5/src/utils';
-import { icons } from 'ckeditor5/src/core';
+import { IconCancel, IconCheck } from 'ckeditor5/src/icons';
 import './../../theme/textalternativeform.css';
 // See: #8833.
 // eslint-disable-next-line ckeditor5-rules/ckeditor-imports
@@ -25,9 +25,9 @@ export default class TextAlternativeFormView extends View {
         this.focusTracker = new FocusTracker();
         this.keystrokes = new KeystrokeHandler();
         this.labeledInput = this._createLabeledInputView();
-        this.saveButtonView = this._createButton(t('Save'), icons.check, 'ck-button-save');
+        this.saveButtonView = this._createButton(t('Save'), IconCheck, 'ck-button-save');
         this.saveButtonView.type = 'submit';
-        this.cancelButtonView = this._createButton(t('Cancel'), icons.cancel, 'ck-button-cancel', 'cancel');
+        this.cancelButtonView = this._createButton(t('Cancel'), IconCancel, 'ck-button-cancel', 'cancel');
         this._focusables = new ViewCollection();
         this._focusCycler = new FocusCycler({
             focusables: this._focusables,

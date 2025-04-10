@@ -5,9 +5,16 @@
 /**
  * @module image/imagestyle/utils
  */
-import { icons } from 'ckeditor5/src/core';
+import {
+	IconObjectCenter,
+	IconObjectFullWidth,
+	IconObjectInline,
+	IconObjectInlineLeft,
+	IconObjectInlineRight,
+	IconObjectLeft,
+	IconObjectRight
+} from 'ckeditor5/src/icons.js';
 import { logWarning } from 'ckeditor5/src/utils';
-const { objectFullWidth, objectInline, objectLeft, objectRight, objectCenter, objectBlockLeft, objectBlockRight } = icons;
 /**
  * Default image style options provided by the plugin that can be referred in the {@link module:image/imageconfig~ImageConfig#styles}
  * configuration.
@@ -29,84 +36,91 @@ const { objectFullWidth, objectInline, objectLeft, objectRight, objectCenter, ob
 export const DEFAULT_OPTIONS = {
     // This style represents an image placed in the line of text.
     get inline() {
-        return {
-            name: 'inline',
-            title: 'In line',
-            icon: objectInline,
-            modelElements: ['imageInline'],
-            isDefault: true
-        };
-    },
-    // This style represents an image aligned to the left and wrapped with text.
-    get alignLeft() {
-        return {
-            name: 'alignLeft',
-            title: 'Left aligned image',
-            icon: objectLeft,
-            modelElements: ['imageBlock', 'imageInline'],
-            className: 'image-style-align-left'
-        };
-    },
-    // This style represents an image aligned to the left.
-    get alignBlockLeft() {
-        return {
-            name: 'alignBlockLeft',
-            title: 'Left aligned image',
-            icon: objectBlockLeft,
-            modelElements: ['imageBlock'],
-            className: 'image-style-block-align-left'
-        };
-    },
-    // This style represents a centered image.
-    get alignCenter() {
-        return {
-            name: 'alignCenter',
-            title: 'Centered image',
-            icon: objectCenter,
-            modelElements: ['imageBlock'],
-            className: 'image-style-align-center'
-        };
-    },
-    // This style represents an image aligned to the right and wrapped with text.
-    get alignRight() {
-        return {
-            name: 'alignRight',
-            title: 'Right aligned image',
-            icon: objectRight,
-            modelElements: ['imageBlock', 'imageInline'],
-            className: 'image-style-align-right'
-        };
-    },
-    // This style represents an image aligned to the right.
-    get alignBlockRight() {
-        return {
-            name: 'alignBlockRight',
-            title: 'Right aligned image',
-            icon: objectBlockRight,
-            modelElements: ['imageBlock'],
-            className: 'image-style-block-align-right'
-        };
-    },
-    // This option is equal to the situation when no style is applied.
-    get block() {
-        return {
-            name: 'block',
-            title: 'Centered image',
-            icon: objectCenter,
-            modelElements: ['imageBlock'],
-            isDefault: true
-        };
-    },
-    // This represents a side image.
-    get side() {
-        return {
-            name: 'side',
-            title: 'Side image',
-            icon: objectRight,
-            modelElements: ['imageBlock'],
-            className: 'image-style-side'
-        };
-    }
+		return {
+			name: 'inline',
+			title: 'In line',
+			icon: IconObjectInline,
+			modelElements: [ 'imageInline' ],
+			isDefault: true
+		};
+	},
+
+	// This style represents an image aligned to the left and wrapped with text.
+	get alignLeft() {
+		return {
+			name: 'alignLeft',
+			title: 'Left aligned image',
+			icon: IconObjectInlineLeft,
+			modelElements: [ 'imageBlock', 'imageInline' ],
+			className: 'image-style-align-left'
+		};
+	},
+
+	// This style represents an image aligned to the left.
+	get alignBlockLeft() {
+		return {
+			name: 'alignBlockLeft',
+			title: 'Left aligned image',
+			icon: IconObjectLeft,
+			modelElements: [ 'imageBlock' ],
+			className: 'image-style-block-align-left'
+		};
+	},
+
+	// This style represents a centered image.
+	get alignCenter() {
+		return {
+			name: 'alignCenter',
+			title: 'Centered image',
+			icon: IconObjectCenter,
+			modelElements: [ 'imageBlock' ],
+			className: 'image-style-align-center'
+		};
+	},
+
+	// This style represents an image aligned to the right and wrapped with text.
+	get alignRight() {
+		return {
+			name: 'alignRight',
+			title: 'Right aligned image',
+			icon: IconObjectInlineRight,
+			modelElements: [ 'imageBlock', 'imageInline' ],
+			className: 'image-style-align-right'
+		};
+	},
+
+	// This style represents an image aligned to the right.
+	get alignBlockRight() {
+		return {
+			name: 'alignBlockRight',
+			title: 'Right aligned image',
+			icon: IconObjectRight,
+			modelElements: [ 'imageBlock' ],
+			className: 'image-style-block-align-right'
+		};
+	},
+
+	// This option is equal to the situation when no style is applied.
+	get block() {
+		return {
+			name: 'block',
+			title: 'Centered image',
+			icon: IconObjectCenter,
+			modelElements: [ 'imageBlock' ],
+			isDefault: true
+		};
+	},
+
+	// This represents a side image.
+	get side() {
+		return {
+			name: 'side',
+			title: 'Side image',
+			icon: IconObjectInlineRight,
+			modelElements: [ 'imageBlock' ],
+			className: 'image-style-side'
+		};
+	}
 };
 /**
  * Default image style icons provided by the plugin that can be referred in the {@link module:image/imageconfig~ImageConfig#styles}
@@ -117,13 +131,13 @@ export const DEFAULT_OPTIONS = {
  * There are 7 default icons available: `'full'`, `'left'`, `'inlineLeft'`, `'center'`, `'right'`, `'inlineRight'`, and `'inline'`.
  */
 export const DEFAULT_ICONS = {
-    full: objectFullWidth,
-    left: objectBlockLeft,
-    right: objectBlockRight,
-    center: objectCenter,
-    inlineLeft: objectLeft,
-    inlineRight: objectRight,
-    inline: objectInline
+    full: IconObjectFullWidth,
+	left: IconObjectLeft,
+	right: IconObjectRight,
+	center: IconObjectCenter,
+	inlineLeft: IconObjectInlineLeft,
+	inlineRight: IconObjectInlineRight,
+	inline: IconObjectInline
 };
 /**
  * Default drop-downs provided by the plugin that can be referred in the {@link module:image/imageconfig~ImageConfig#toolbar}

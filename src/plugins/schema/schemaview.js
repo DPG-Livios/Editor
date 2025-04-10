@@ -10,7 +10,7 @@ import {
 	ButtonView,
 	submitHandler
 } from '@ckeditor/ckeditor5-ui';
-import { icons } from '@ckeditor/ckeditor5-core';
+import { IconCancel } from '@ckeditor/ckeditor5-icons';
 
 export default class SchemaView extends View {
 	constructor( editor ) {
@@ -20,7 +20,7 @@ export default class SchemaView extends View {
 		this.faqTitleButtonView = this._createButton( 'FAQ title', 'faq_title', undefined, 'ck-button_with-text' );
 		this.faqParagraphButtonView = this._createButton( 'FAQ paragraph', 'faq_paragraph', undefined, 'ck-button_with-text' );
 
-		this.cancelButtonView = this._createButton( 'Cancel', undefined, icons.cancel, 'ck-button-cancel' );
+		this.cancelButtonView = this._createButton( 'Cancel', undefined, IconCancel, 'ck-button-cancel' );
 
 		// Delegate ButtonView#execute to FormView#cancel
 		//this.cancelButtonView.delegate( 'execute' ).to( this, 'cancel' );

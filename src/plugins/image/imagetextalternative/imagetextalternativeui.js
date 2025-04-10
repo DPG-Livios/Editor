@@ -5,7 +5,8 @@
 /**
  * @module image/imagetextalternative/imagetextalternativeui
  */
-import { Plugin, icons } from 'ckeditor5/src/core';
+import { Plugin } from 'ckeditor5/src/core';
+import { IconTextAlternative } from 'ckeditor5/src/icons';
 import { ButtonView, ContextualBalloon, clickOutsideHandler, CssTransitionDisablerMixin } from 'ckeditor5/src/ui';
 import TextAlternativeFormView from './ui/textalternativeformview';
 import { repositionContextualBalloon, getBalloonPositionData } from '../image/ui/utils';
@@ -55,7 +56,7 @@ export default class ImageTextAlternativeUI extends Plugin {
             const view = new ButtonView(locale);
             view.set({
                 label: t('Change image text alternative'),
-                icon: icons.textAlternative,
+                icon: IconTextAlternative,
                 tooltip: true
             });
             view.bind('isEnabled').to(command, 'isEnabled');

@@ -17,7 +17,7 @@ import FocusCycler from '@ckeditor/ckeditor5-ui/src/focuscycler';
 import KeystrokeHandler from '@ckeditor/ckeditor5-utils/src/keystrokehandler';
 
 import unanchorIcon from './../theme/icons/unanchor.svg';
-import pencilIcon from '@ckeditor/ckeditor5-core/theme/icons/pencil.svg';
+import pencilIcon from '@ckeditor/ckeditor5-icons/theme/icons/pencil.svg';
 import './../theme/anchoractions.css';
 import '@ckeditor/ckeditor5-ui/theme/components/responsive-form/responsiveform.css';
 

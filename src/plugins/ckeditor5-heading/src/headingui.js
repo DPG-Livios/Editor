@@ -6,7 +6,7 @@
  * @module heading/headingui
  */
 import { Plugin } from 'ckeditor5/src/core';
-import { Model, createDropdown, addListToDropdown } from 'ckeditor5/src/ui';
+import { ViewModel, createDropdown, addListToDropdown } from 'ckeditor5/src/ui';
 import { Collection } from 'ckeditor5/src/utils';
 import { getLocalizedOptions } from './utils';
 import '../theme/heading.css';
@@ -39,7 +39,7 @@ export default class HeadingUI extends Plugin {
             for (const option of options) {
                 const def = {
                     type: 'button',
-                    model: new Model({
+                    model: new ViewModel({
                         label: option.title,
                         class: option.class,
                         role: 'menuitemradio',

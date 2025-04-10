@@ -5,15 +5,21 @@
 /**
  * @module image/imageresize/imageresizebuttons
  */
-import { Plugin, icons } from 'ckeditor5/src/core';
-import { ButtonView, DropdownButtonView, Model, createDropdown, addListToDropdown } from 'ckeditor5/src/ui';
+import { Plugin } from 'ckeditor5/src/core';
+import { IconObjectSizeCustom,
+	IconObjectSizeFull,
+	IconObjectSizeLarge,
+	IconObjectSizeMedium,
+	IconObjectSizeSmall } from 'ckeditor5/src/icons';
+import { ButtonView, DropdownButtonView, ViewModel, createDropdown, addListToDropdown } from 'ckeditor5/src/ui';
 import { CKEditorError, Collection } from 'ckeditor5/src/utils';
 import ImageResizeEditing from './imageresizeediting';
 const RESIZE_ICONS = {
-    small: icons.objectSizeSmall,
-    medium: icons.objectSizeMedium,
-    large: icons.objectSizeLarge,
-    original: icons.objectSizeFull
+	small: IconObjectSizeSmall,
+	medium: IconObjectSizeMedium,
+	large: IconObjectSizeLarge,
+	custom: IconObjectSizeCustom,
+	original: IconObjectSizeFull
 };
 /**
  * The image resize buttons plugin.
@@ -188,7 +194,7 @@ export default class ImageResizeButtons extends Plugin {
             const optionValueWithUnit = option.value ? option.value + this._resizeUnit : null;
             const definition = {
                 type: 'button',
-                model: new Model({
+                model: new ViewModel({
                     commandName: 'resizeImage',
                     commandValue: optionValueWithUnit,
                     label: this._getOptionLabelValue(option),

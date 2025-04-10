@@ -1,7 +1,7 @@
 import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview';
-import imageIcon from '@ckeditor/ckeditor5-core/theme/icons/image.svg';
+import imageIcon from '@ckeditor/ckeditor5-icons/theme/icons/image.svg';
 
 export default class UploadImage extends Plugin {
     init() {

@@ -5,7 +5,8 @@
 /**
  * @module image/imagecaption/imagecaptionui
  */
-import { Plugin, icons } from 'ckeditor5/src/core';
+import { Plugin } from 'ckeditor5/src/core';
+import { IconCaption } from 'ckeditor5/src/icons';
 import { ButtonView } from 'ckeditor5/src/ui';
 import ImageCaptionUtils from './imagecaptionutils';
 /**
@@ -36,7 +37,7 @@ export default class ImageCaptionUI extends Plugin {
             const command = editor.commands.get('toggleImageCaption');
             const view = new ButtonView(locale);
             view.set({
-                icon: icons.caption,
+                icon: IconCaption,
                 tooltip: true,
                 isToggleable: true
             });

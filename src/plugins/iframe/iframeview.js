@@ -10,7 +10,7 @@ import {
 	ButtonView,
 	submitHandler
 } from '@ckeditor/ckeditor5-ui';
-import { icons } from '@ckeditor/ckeditor5-core';
+import { IconCheck, IconCancel } from '@ckeditor/ckeditor5-icons';
 
 export default class IframeView extends View {
 	constructor( locale ) {
@@ -20,12 +20,12 @@ export default class IframeView extends View {
 		this.widthInputView = this._createInput( 'Width', 500);
 		this.heightInputView = this._createInput( 'Height', 300);
 
-		this.saveButtonView = this._createButton( 'Save', icons.check, 'ck-button-save' );
+		this.saveButtonView = this._createButton( 'Save', IconCheck, 'ck-button-save' );
 		// Submit type of the button will trigger the submit event on entire form when clicked 
         // (see submitHandler() in render() below).
 		this.saveButtonView.type = 'submit';
 
-		this.cancelButtonView = this._createButton( 'Cancel', icons.cancel, 'ck-button-cancel' );
+		this.cancelButtonView = this._createButton( 'Cancel', IconCancel, 'ck-button-cancel' );
 
 		// Delegate ButtonView#execute to FormView#cancel
 		this.cancelButtonView.delegate( 'execute' ).to( this, 'cancel' );

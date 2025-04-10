@@ -5,7 +5,7 @@
 /**
  * @module image/imageinsert/ui/imageinsertpanelview
  */
-import { icons } from 'ckeditor5/src/core';
+import { IconCancel, IconCheck } from 'ckeditor5/src/icons';
 import { ButtonView, View, ViewCollection, submitHandler, FocusCycler } from 'ckeditor5/src/ui';
 import { Collection, FocusTracker, KeystrokeHandler } from 'ckeditor5/src/utils';
 import ImageInsertFormRowView from './imageinsertformrowview';
@@ -156,7 +156,7 @@ export default class ImageInsertPanelView extends View {
         const cancelButtonView = new ButtonView(locale);
         insertButtonView.set({
             label: t('Insert'),
-            icon: icons.check,
+            icon: IconCheck,
             class: 'ck-button-save',
             type: 'submit',
             withText: true,
@@ -165,7 +165,7 @@ export default class ImageInsertPanelView extends View {
         });
         cancelButtonView.set({
             label: t('Cancel'),
-            icon: icons.cancel,
+            icon: IconCancel,
             class: 'ck-button-cancel',
             withText: true
         });

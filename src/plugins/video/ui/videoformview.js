@@ -7,7 +7,7 @@
  */
 import { ButtonView, FocusCycler, LabeledFieldView, View, ViewCollection, createLabeledInputText, submitHandler } from 'ckeditor5/src/ui';
 import { FocusTracker, KeystrokeHandler } from 'ckeditor5/src/utils';
-import { icons } from 'ckeditor5/src/core';
+import { IconCancel, IconCheck } from 'ckeditor5/src/icons';
 import VideoFormRowView from './videoformrowview';
 // See: #8833.
 // eslint-disable-next-line ckeditor5-rules/ckeditor-imports
@@ -175,7 +175,7 @@ export default class VideoFormView extends View {
         const cancelButtonView = new ButtonView(locale);
         saveButtonView.set({
             label: t('Save'),
-            icon: icons.check,
+            icon: IconCheck,
             class: 'ck-button-save',
             type: 'submit',
             withText: true,
@@ -184,7 +184,7 @@ export default class VideoFormView extends View {
         });
         cancelButtonView.set({
             label: t('Cancel'),
-            icon: icons.cancel,
+            icon: IconCancel,
             class: 'ck-button-cancel',
             withText: true
         });

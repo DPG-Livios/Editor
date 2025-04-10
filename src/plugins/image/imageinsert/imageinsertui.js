@@ -5,7 +5,8 @@
 /**
  * @module image/imageinsert/imageinsertui
  */
-import { Plugin, icons } from 'ckeditor5/src/core';
+import { Plugin } from 'ckeditor5/src/core';
+import { IconImage } from 'ckeditor5/src/icons';
 import { SplitButtonView, createDropdown } from 'ckeditor5/src/ui';
 import ImageInsertPanelView from './ui/imageinsertpanelview';
 import { prepareIntegrations } from './utils';
@@ -52,7 +53,7 @@ export default class ImageInsertUI extends Plugin {
         const panelView = this.dropdownView.panelView;
         buttonView.set({
             label: 'Afbeelding toevoegen',
-            icon: icons.image,
+            icon: IconImage,
             tooltip: true
         });
         panelView.extendTemplate({

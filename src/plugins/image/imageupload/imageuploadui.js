@@ -2,8 +2,9 @@
  * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
-import { Plugin, icons } from 'ckeditor5/src/core';
-import { FileDialogButtonView } from 'ckeditor5/src/upload';
+import { Plugin } from 'ckeditor5/src/core.js';
+import { IconImage } from 'ckeditor5/src/icons';
+import { FileDialogButtonView } from 'ckeditor5/src/ui';
 import { createImageTypeRegExp } from './utils';
 /**
  * The image upload button plugin.
@@ -37,7 +38,7 @@ export default class ImageUploadUI extends Plugin {
             });
             view.buttonView.set({
                 label: 'Afbeelding toevoegen',
-                icon: icons.image,
+                icon: IconImage,
                 tooltip: true
             });
             view.buttonView.bind('isEnabled').to(command);

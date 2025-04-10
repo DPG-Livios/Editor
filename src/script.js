@@ -4,7 +4,8 @@ import Editor from './ckeditor';
 
 Editor
     // Note that you do not have to specify the plugin and toolbar configuration — using defaults from the build.
-    .create( document.querySelector( '.editor' ))
+    .create( document.querySelector( '.editor' ), {
+        licenseKey: 'GPL'})
     .then( editor => {
         console.log( 'Editor was initialized', editor );
 
@@ -13,5 +14,5 @@ Editor
 		window.editor = editor;
     } )
     .catch( error => {
-        console.error( error.stack );
+        console.error( error.message, error.stack );
     } );
